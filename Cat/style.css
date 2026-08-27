@@ -1,0 +1,30 @@
+img {
+    max-height: 45vw;
+    width: auto;
+    min-height: 1vw;
+}
+a {
+    font-size:3.5vw;
+}
+p {
+    font-size: 7.5vw;
+}
+body {
+    background: linear-gradient(to bottom, #39FF14, #000435);
+}
+h1 {
+    font-size: 10vw;
+    text-decoration: underline;
+}
+.smallBreak {
+    margin-top: 0.1px;
+}
+.center {
+    text-align: center;
+    font-size: 20vw;
+    background-image: linear-gradient(to right, blue, #ffb03a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}

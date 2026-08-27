@@ -1,0 +1,24 @@
+a {
+    font-size: 4.9vw;
+    white-space: nowrap;
+    color: #000080;
+}
+
+h1 {
+    font-size: 4.26vw;
+    background: linear-gradient(to left, #192738, #0693BD);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-family: "Pacifico";
+}
+
+.underlineno {
+    font-family: "Pacifico";
+    text-decoration: none;
+    color: #E361FA;
+}
+
+body {
+    background: linear-gradient(to right, #111111, #999999);
+}

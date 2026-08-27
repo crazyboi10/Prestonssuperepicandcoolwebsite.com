@@ -1,0 +1,117 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+
+    min-height: 100vh;
+
+    background: #f8f9fa;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-container {
+    text-align: center;
+}
+
+h1 {
+    margin: 0 0 10px 0;
+
+    font-size: 42px;
+
+    color: #4285f4;
+}
+
+.score {
+    font-size: 22px;
+
+    margin-bottom: 15px;
+
+    color: #333;
+}
+
+#game {
+    display: block;
+
+    background: white;
+
+    border: 3px solid #dadce0;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.15);
+
+    max-width: 90vw;
+    max-height: 70vh;
+}
+
+.controls {
+    margin-top: 15px;
+
+    color: #666;
+
+    font-size: 15px;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.button {
+    display: inline-block;
+
+    margin-top: 5px;
+
+    padding: 10px 22px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background: #4285f4;
+
+    color: white;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    transition: background 0.15s;
+}
+
+.button:hover {
+    background: #3367d6;
+}
+
+.button:active {
+    transform: scale(0.97);
+}
+
+@media (max-width: 420px) {
+    .actions {
+        flex-wrap: wrap;
+    }
+}
+
+#gameOver {
+    min-height: 25px;
+
+    margin-top: 12px;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    color: #ea4335;
+}

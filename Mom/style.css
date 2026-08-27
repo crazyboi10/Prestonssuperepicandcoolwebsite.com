@@ -1,0 +1,39 @@
+.video {
+    width: 98vw;
+    max-width: 99vw;
+    display: block;
+    margin: 0vw auto;
+}
+img {
+    width: 50vw;
+    max-width:51vw;
+    margin: 0vw auto;
+}
+img, .video {
+    display: block;
+    margin-left: 0;
+    margin-right: auto;
+}
+body {
+    background: linear-gradient(to bottom, #00FF26, #0019FF);
+}
+h1 {
+    font-size:15vw;
+    margin: 0vw auto;
+}
+a {
+    font-size:5vw;
+    margin: 0vw auto;
+}
+.birth {
+    font-size:4.5vw;
+    font-family: "Pacifico";
+    background-image: linear-gradient(to right, yellow, green, green, yellow);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.right {
+    text-align: right;
+}

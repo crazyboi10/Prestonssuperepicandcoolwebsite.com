@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Frog Counter</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type='image/x-icon' href="Frog.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <button onclick="window.location.href='../Main Page/index.html'" class='a'>Leave</button>
+    <h1>Frog Counter</h1>
+
+<button onclick="addFrog()">Add Frog</button>
+
+<p>Frogs: <span id="count">0</span></p>
+
+<div id="frogs"></div>
+
+</body>
+</html>
+<script>
+let frogCount = 0;
+
+const frogNames = [
+    "Greg",
+    "Frogert",
+    "Sir Ribbits",
+    "Kevin",
+    "Mr. Hops",
+    "Wet Lad",
+    "The Chosen One",
+    "Not A Frog",
+    "Dave",
+    "???",
+    "Not Preston",
+    "Not Malakai",
+    "Not Mr. O'Connell",
+    "Taco",
+    "Chez Burgur",
+    "Preston",
+    "Not Not Malakai",
+    "Human",
+    "Cat",
+    "Dog",
+    "Drog",
+    "Timmothy",
+    "Jeremy",
+    "Jerry",
+    "Joe",
+    "Bob",
+    "Chris",
+    "Chriszs",
+    "Mr.Landes",
+    "Mrs. Miller",
+    "Mrs. Wilson",
+    "Mr.Hoffert",
+    "Mrs. Myers",
+    "Wendel",
+    "Amanda",
+    "Janay",
+    "Cameron",
+    "Nathan",
+    "Nate",
+    "Luis",
+    "John",
+    "Nathan",
+    "Nathan",
+    "Nate",
+    "Nate",
+    "Wendel Landes",
+    "Amanda Wilson",
+    "Janay Hacklemen",
+    "Camron Troyer",
+    "Nathan O'Connell",
+    "Nathan O'Connell",
+    "Nate O'Connell",
+    "Nate'O'Connell",
+    "Diane Miller",
+    "Chad Hoffert",
+    "Kathy Myers",
+    "Daiane",
+    "Chad",
+    "Kathy",
+];
+
+function addFrog() {
+    frogCount++;
+    document.getElementById("count").innerText = frogCount;
+
+    const frog = document.createElement("div");
+
+    const name = frogNames[Math.floor(Math.random() * frogNames.length)];
+
+    frog.innerText = "🐸 " + name;
+    frog.style.fontSize = "10vw";
+    frog.style.margin = "4px";
+
+    document.getElementById("frogs").appendChild(frog);
+}
+</script>
+

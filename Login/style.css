@@ -1,0 +1,19 @@
+a {
+    font-family: "Pacifico";
+    background: linear-gradient(to right, #3BC9ED, #FFF4A3, #FFFFFF, #A93BED);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size:12vw;
+}
+
+.small{
+    font-family: "Pacifico";
+    background: linear-gradient(to bottom, #3BC9ED, #FFF4A3, #FFFFFF, #A93BED);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size:1vw;
+}
+
+body {
+    background: linear-gradient(to left, #0B1020, #243B55);
+}

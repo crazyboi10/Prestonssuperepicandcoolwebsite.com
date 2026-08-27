@@ -1,0 +1,27 @@
+.download-btn {
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #0078d4, #5ea0ef);
+  color: white;
+  font-size: 18px;
+  text-decoration: none;
+  font-family: "Segoe UI", sans-serif;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+p {
+    font-size: 50px;
+}
+body {
+    background: linear-gradient(to right, #613737, #4CA8AD, #4A1330);
+}
+a {
+    font-size: 25px;
+    color: #d6d257;
+    text-decoration: none;
+}

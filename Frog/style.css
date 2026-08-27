@@ -1,0 +1,40 @@
+h1 {
+    font-family: "Pacifico";
+    background: linear-gradient(to right, black,yellow, black, black);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size:12vw;
+}
+
+body {
+    background: linear-gradient(to bottom, #39FF14, #000435);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-size: 12vw;
+}
+button {
+    font-size: 5vw;
+    padding: 20px 40px;
+    border: none;
+    border-radius: 20px;
+
+    background: linear-gradient(to right, #00ff88, #00ccff, #8844ff);
+    color: black;
+
+    font-family: "Pacifico";
+    cursor: pointer;
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+button:hover {
+    transform: translateY(-25px);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.45);
+}
+.a {
+    font-size: 1vw;
+    border-radius: 999px;
+    position: fixed;
+    top: .5vw;
+    right: .5vw;
+}

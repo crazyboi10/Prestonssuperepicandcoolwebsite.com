@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Google Snake</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="game-container">
+
+        <h1>Snake</h1>
+
+        <div class="score">
+            Score: <span id="score">0</span>
+        </div>
+
+        <canvas id="game" width="600" height="600"></canvas>
+
+        <p class="controls">
+            Use Arrow Keys or WASD to move
+        </p>
+
+        <div class="actions">
+            <a class="button" href="../Main Page/index.html">Leave</a>
+            <button class="button" id="restart">
+                Restart
+            </button>
+        </div>
+
+        <p id="gameOver"></p>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
