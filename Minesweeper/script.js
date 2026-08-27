@@ -710,7 +710,7 @@ restartButton.addEventListener(
 exitButton.addEventListener(
     "click",
     function () {
-        window.location.href = "../Main Page/index.html";
+        window.location.href = "../index.html";
     }
 );
 
