@@ -19,6 +19,11 @@ h1 {
     color: #E361FA;
 }
 
+.shop-title {
+    display: inline-block;
+    font-size: 4.9vw;
+}
+
 body {
     background: linear-gradient(to right, #111111, #999999);
 }
