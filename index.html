@@ -1,44 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>PRESTONS SUPER EPIC AND COOL WEBSITE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preston's Super Epic And Cool Website</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="me.ico">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Welcome to Preston's Super Epic And Cool Website!</h1>
-    <a class='underlineno shop-title' href='Shop/index.html'>Preston's 3D Prints - Buy my prints</a>
-    <br>
-    <a class='underlineno' href='../Mom/index.html'>Mom</a>
-    <br>
-    <a class='underlineno' href='../PC Bomb/index.html'>PC Bomb - Siser warning! - Enter at own risk!</a>
-    <br>
-    <a class='underlineno' href="https://www.tacobell.com/">Taco</a>
-    <br>
-    <a class='underlineno' href="https://www.youtube.com/watch?v=Aq5WXmQQooo">Free Money!</a>
-    <br>
-    <a class='underlineno' href="../Calculator/index.html">Calculator</a>
-    <br>
-    <a class='underlineno' href="../Cat/index.html">Cat</a>
-    <br>
-    <a class='underlineno' href="something">Something</a>
-    <br>
-    <a class='underlineno' href='https://adrianmdershem.pythonanywhere.com/pong'>Pong - Malakai Dershem</a>
-    <br>
-    <a class='underlineno' href='Kelsey-website!'>Kelsey's website - Country Girl Bowtique</a>
-    <br>
-    <a class='underlineno' href='../Frog/index.html'>Frog Counter</a>
-    <br>
-    <a class='underlineno' href='../Google Snake/index.html'>Google Snake</a>
-    <br>
-    <a class='underlineno' href='../Minesweeper/index.html'>Minesweeper</a>
-    <br>
-    <a class='underlineno' href='https://google.com'>Google</a>
-    <br>
-    <a class='underlineno' href='https://prestoncoy.pythonanywhere.com/'>My old website</a>
-    <br>
-    <a class='underlineno' href='../Login/index.html'>Log In/out</a>
+    <div class="scroll-progress" id="scroll-progress"></div>
+    <div class="ambient-grid" aria-hidden="true"></div>
+    <header class="topbar"><span>PRESTON'S SUPER EPIC AND COOL WEBSITE</span><span id="clock">--:--:--</span><button id="theme-toggle" type="button">Switch colors</button></header>
+    <section class="dashboard" aria-label="Live dashboard"><div class="dash-block weather-block"><span class="dash-label">Weather near you</span><strong id="weather-temp">--°</strong><span id="weather-description">Finding the sky...</span><small id="weather-location">Location waiting</small></div><div class="dash-block"><span class="dash-label">Today</span><strong id="today-date">--</strong><span id="day-progress">--</span><small id="sun-times">Sunrise -- / Sunset --</small></div><div class="dash-block"><span class="dash-label">Playground stats</span><strong id="dash-destinations">15</strong><span>destinations online</span><small id="dash-visits">Visitor 001</small></div><div class="dash-block signal-block"><span class="dash-label">Daily signal</span><strong id="daily-signal">MAKE SOMETHING</strong><span id="wind-status">Wind --</span><small>Keep exploring</small></div></section>
+    <main class="home-shell">
+        <section class="intro"><p class="kicker">Welcome!</p><h1>Preston's<br><em>Super Epic</em><br>And Cool Website!</h1><p class="intro-copy">Welcome to my website! Here you can find my games, links, and other cool stuff.</p><div class="signal"><span class="pulse"></span><span id="status-text">Thanks for visiting!</span></div></section>
+        <section class="launch-section"><div class="section-label"><span>Launch board</span><span id="link-count">00 destinations</span></div><div class="link-grid">
+            <a class="launch-card featured" href="Shop/index.html"><small>SHOP / 01</small><strong>Preston's 3D Prints</strong><span>Buy my 3D prints <b>↗</b></span></a>
+            <a class="launch-card" href="../Mom/index.html"><small>PAGE / 02</small><strong>Mom</strong><span>Just Mom</span></a>
+            <a class="launch-card warning" href="../PC Bomb/index.html"><small>WARNING / 03</small><strong>PC Bomb</strong><span>Siser warning! Enter at own risk!</span></a>
+            <a class="launch-card" href="https://www.tacobell.com/"><small>LINK / 04</small><strong>Taco</strong><span>Taco Bell</span></a>
+            <a class="launch-card" href="https://www.youtube.com/watch?v=Aq5WXmQQooo"><small>LINK / 05</small><strong>Free Money!</strong><span>Free Money!</span></a>
+            <a class="launch-card" href="../Calculator/index.html"><small>TOOL / 06</small><strong>Calculator</strong><span>Calculator</span></a>
+            <a class="launch-card" href="../Cat/index.html"><small>PAGE / 07</small><strong>Cat</strong><span>Cat</span></a>
+            <a class="launch-card" href="something"><small>MYSTERY / 08</small><strong>Something</strong><span>Something</span></a>
+            <a class="launch-card" href="https://adrianmdershem.pythonanywhere.com/pong"><small>GAME / 09</small><strong>Pong - Malakai Dershem</strong><span>Pong - Malakai Dershem</span></a>
+            <a class="launch-card" href="Kelsey-website!"><small>SHOP / 10</small><strong>Kelsey's website - Country Girl Bowtique</strong><span>Kelsey's website - Country Girl Bowtique</span></a>
+            <a class="launch-card" href="../Frog/index.html"><small>GAME / 11</small><strong>Frog Counter</strong><span>Frog Counter</span></a>
+            <a class="launch-card" href="../Google Snake/index.html"><small>GAME / 12</small><strong>Google Snake</strong><span>Google Snake</span></a>
+            <a class="launch-card" href="https://google.com"><small>LINK / 13</small><strong>Google</strong><span>Google</span></a>
+            <a class="launch-card" href="https://prestoncoy.pythonanywhere.com/"><small>ARCHIVE / 14</small><strong>My old website</strong><span>My old website</span></a>
+            <a class="launch-card" href="../Login/index.html"><small>ACCOUNT / 15</small><strong>Log In/out</strong><span>Log In/out</span></a>
+        </div></section>
+    </main>
+    <div class="ticker" aria-hidden="true"><div>PRESTON'S SUPER EPIC AND COOL WEBSITE <span>✦</span> GAMES <span>✦</span> TOOLS <span>✦</span> PRINTS <span>✦</span> EXPERIMENTS <span>✦</span> PRESTON'S SUPER EPIC AND COOL WEBSITE <span>✦</span></div></div>
+    <footer>BUILT BY PRESTON <span>•</span> <span id="visit-count">VISITOR 001</span></footer>
+    <script src="home.js"></script>
 </body>
 </html>
 <!-- My website will be prestoniscool.com -->
