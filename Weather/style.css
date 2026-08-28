@@ -685,3 +685,55 @@ section {
 .rain-streaks {
     display: none;
 }
+
+.alerts-section {
+    margin-top: 35px;
+}
+
+.alert {
+    border-left: 6px solid var(--hot);
+    background: rgba(255, 255, 255, .55);
+    margin-bottom: 12px;
+    padding: 18px 20px;
+}
+
+.alert h3 {
+    margin: 0 0 8px;
+    font-size: 20px;
+}
+
+.alert p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 8px 0;
+}
+
+.alert-meta {
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    margin-top: 12px;
+}
+
+.alert-danger {
+    border-left-color: #d62828;
+}
+
+.alert-warning {
+    border-left-color: #f77f00;
+}
+
+.alert-watch {
+    border-left-color: #fcbf49;
+}
+
+.alert-info {
+    border-left-color: var(--blue);
+}
+
+.no-alerts {
+    color: var(--muted);
+    font-size: 13px;
+    padding: 15px 0;
+}

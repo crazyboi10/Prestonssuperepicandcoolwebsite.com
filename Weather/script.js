@@ -1,5 +1,99 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
+async function loadWeatherAlerts(latitude, longitude) {
+    const alertsSection = document.querySelector('#alerts-section');
+    const alertsContainer = document.querySelector('#weather-alerts');
+
+    try {
+        const response = await fetch(
+            `https://api.weather.gov/alerts/active?point=${latitude},${longitude}`,
+            {
+                headers: {
+                    'Accept': 'application/geo+json',
+                    'User-Agent': 'PrestonsWeatherWebsite/1.0'
+                }
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error('Could not load weather alerts.');
+        }
+
+        const data = await response.json();
+        const alerts = data.features || [];
+
+        if (!alerts.length) {
+            alertsSection.hidden = false;
+
+            alertsContainer.innerHTML = `
+                <p class="no-alerts">
+                    No active weather alerts for this location.
+                </p>
+            `;
+
+            return;
+        }
+
+        alertsSection.hidden = false;
+
+        alertsContainer.innerHTML = alerts.map(alert => {
+            const properties = alert.properties;
+
+            let alertClass = 'alert-info';
+
+            if (
+                properties.severity === 'Extreme' ||
+                properties.severity === 'Severe'
+            ) {
+                alertClass = 'alert-danger';
+            } else if (properties.severity === 'Moderate') {
+                alertClass = 'alert-warning';
+            } else if (
+                properties.event?.includes('Watch') ||
+                properties.event?.includes('Advisory')
+            ) {
+                alertClass = 'alert-watch';
+            }
+
+            const expires = properties.expires
+                ? new Date(properties.expires).toLocaleString()
+                : 'Unknown';
+
+            return `
+                <article class="alert ${alertClass}">
+                    <h3>${properties.event || 'Weather Alert'}</h3>
+
+                    <p>
+                        ${properties.headline || 'Active weather alert.'}
+                    </p>
+
+                    ${
+                        properties.description
+                            ? `<p>${properties.description}</p>`
+                            : ''
+                    }
+
+                    <div class="alert-meta">
+                        Severity: ${properties.severity || 'Unknown'}
+                        <br>
+                        Expires: ${expires}
+                    </div>
+                </article>
+            `;
+        }).join('');
+
+    } catch (error) {
+        console.error('Weather alerts error:', error);
+
+        alertsSection.hidden = false;
+
+        alertsContainer.innerHTML = `
+            <p class="no-alerts">
+                Weather alerts could not be loaded right now.
+            </p>
+        `;
+    }
+}
 const supabase = createClient('https://gqcvoqemwsaptfcztani.supabase.co', 'sb_publishable_FOdYR9QBjHAQAhh52WuM6A_N4mWCfUJ');
 const message = document.querySelector('#message');
 const townName = document.querySelector('#town-name');
@@ -22,6 +116,7 @@ async function loadWeather(latitude, longitude, name) {
         const data = await response.json();
         latestWeather = { data, latitude, longitude, name };
         currentPlace = { latitude, longitude, name };
+        await loadWeatherAlerts(latitude, longitude);
         townName.textContent = name;
         const temperatureUnit = useCelsius ? '°C' : '°F';
         const temperature = value => useCelsius ? Math.round((value - 32) * 5 / 9) : Math.round(value);
