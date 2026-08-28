@@ -19,6 +19,14 @@ h1 {
     gap: 0;
 }
 
+.links a.bomb {
+    font-family: "Pacifico", cursive;
+    font-size: 4.7vw;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+    text-decoration: none;
+}
+
 .clock { color: #eeeeee; font-family: "Pacifico", cursive; font-size: clamp(18px, 2.4vw, 30px); margin: 0 0 8px; }
 
 .links a {
