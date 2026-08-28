@@ -2,7 +2,7 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 const SUPABASE_URL = 'https://gqcvoqemwsaptfcztani.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_FOdYR9QBjHAQAhh52WuM6A_N4mWCfUJ';
-const ORDER_EMAIL = 'YOUR-EMAIL@example.com';
+const ORDER_EMAIL = 'chez.it.kid.2000@gmail.com';
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 let products = [];
 let cart = [];
@@ -83,7 +83,7 @@ document.querySelector('#login-form').addEventListener('submit', async event => 
 document.querySelector('#sign-out').addEventListener('click', async () => { await supabase.auth.signOut(); document.querySelector('#account-dialog').close(); });
 document.querySelector('#checkout-button').addEventListener('click', () => { if (cart.length) document.querySelector('#checkout-dialog').showModal(); });
 document.querySelector('#checkout-close').addEventListener('click', () => document.querySelector('#checkout-dialog').close());
-document.querySelector('#checkout-form').addEventListener('submit', event => { event.preventDefault(); const name = document.querySelector('#customer-name').value; const email = document.querySelector('#customer-email').value; const notes = document.querySelector('#customer-notes').value; const lines = cart.map(item => { const product = products.find(entry => entry.id === item.id); return `${item.quantity} x ${product.name} (${money(product.price * item.quantity)})`; }).join('%0D%0A'); const total = cart.reduce((sum, item) => sum + products.find(product => product.id === item.id).price * item.quantity, 0); window.location.href = `mailto:${ORDER_EMAIL}?subject=New Preston Prints order&body=Name: ${encodeURIComponent(name)}%0D%0AEmail: ${encodeURIComponent(email)}%0D%0A%0D%0A${lines}%0D%0A%0D%0ATotal: ${money(total)}%0D%0ANotes: ${encodeURIComponent(notes)}`; });
+document.querySelector('#checkout-form').addEventListener('submit', async event => { event.preventDefault(); const name = document.querySelector('#customer-name').value; const email = document.querySelector('#customer-email').value; const notes = document.querySelector('#customer-notes').value; const orderItems = cart.map(item => { const product = products.find(entry => entry.id === item.id); return { name: product.name, quantity: item.quantity, price: product.price }; }); const total = orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0); await supabase.functions.invoke('send-order-telegram', { body: { customerName: name, customerEmail: email, notes, items: orderItems, total } }); const lines = orderItems.map(item => `${item.quantity} x ${item.name} (${money(item.price * item.quantity)})`).join('%0D%0A'); window.location.href = `mailto:${ORDER_EMAIL}?subject=New Preston Prints order&body=Name: ${encodeURIComponent(name)}%0D%0AEmail: ${encodeURIComponent(email)}%0D%0A%0D%0A${lines}%0D%0A%0D%0ATotal: ${money(total)}%0D%0ANotes: ${encodeURIComponent(notes)}`; });
 
 await loadProducts();
 await loadSession();
