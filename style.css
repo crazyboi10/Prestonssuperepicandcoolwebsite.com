@@ -19,6 +19,8 @@ h1 {
     gap: 0;
 }
 
+.clock { color: #eeeeee; font-family: "Pacifico", cursive; font-size: clamp(18px, 2.4vw, 30px); margin: 0 0 8px; }
+
 .links a {
     animation: link-in 500ms ease-out var(--delay) both;
     color: #E361FA;
