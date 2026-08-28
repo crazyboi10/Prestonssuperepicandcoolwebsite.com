@@ -10,8 +10,21 @@ create table if not exists public.products (
     price numeric(10, 2) not null check (price >= 0),
     stock integer not null default 0 check (stock >= 0),
     color text not null default 'coral',
-    description text not null default ''
+    description text not null default '',
+    image_url text
 );
+
+alter table public.products add column if not exists image_url text;
+
+insert into storage.buckets (id, name, public)
+values ('product-images', 'product-images', true)
+on conflict (id) do update set public = true;
+
+drop policy if exists "Anyone can view product images" on storage.objects;
+create policy "Anyone can view product images" on storage.objects for select using (bucket_id = 'product-images');
+
+drop policy if exists "Owners can upload product images" on storage.objects;
+create policy "Owners can upload product images" on storage.objects for insert with check (bucket_id = 'product-images' and exists (select 1 from public.profiles where id = auth.uid() and role = 'owner'));
 
 create table if not exists public.carts (
     user_id uuid primary key references auth.users(id) on delete cascade,

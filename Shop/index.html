@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preston Prints | 3D printed things</title>
+    <title>Preston's 3D Prints</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header class="site-header">
-        <a class="brand" href="../index.html" aria-label="Back to Preston's website">PRESTON <span>PRINTS</span></a>
+        <a class="brand" href="../index.html" aria-label="Back to Preston's website">PRESTON'S <span>3D PRINTS</span></a>
         <nav aria-label="Main navigation">
             <a href="#shop">Shop</a>
             <a href="#how-it-works">How it works</a>
             <button class="account-button" id="account-button" type="button">Account</button>
             <button class="cart-button" id="cart-button" type="button">Cart <b id="cart-count">0</b></button>
+            <a class="exit-button" href="../index.html">Exit</a>
         </nav>
     </header>
 
@@ -46,12 +47,13 @@
                     <div><p class="eyebrow">Studio tools</p><h2>Inventory desk</h2></div>
                     <button class="icon-button" id="inventory-close" type="button" aria-label="Close inventory">&#10005;</button>
                 </div>
-                <p class="panel-note">Changes are saved online in Supabase. Replace the order email in <strong>script-supabase.js</strong> before sharing the link.</p>
+                <p class="panel-note">Changes are saved online in Supabase. Run the latest <strong>supabase-schema.sql</strong> first to enable product images. Replace the order email in <strong>script-supabase.js</strong> before sharing the link.</p>
                 <form id="product-form" class="product-form">
                     <input id="product-name" type="text" placeholder="Product name" required>
                     <input id="product-price" type="number" min="0" step="0.01" placeholder="Price" required>
                     <input id="product-stock" type="number" min="0" step="1" placeholder="Stock" required>
                     <select id="product-color" aria-label="Product color"><option value="coral">Coral</option><option value="lime">Lime</option><option value="sky">Sky</option><option value="gold">Gold</option></select>
+                    <input id="product-image" type="file" accept="image/png,image/jpeg,image/webp" aria-label="Product image">
                     <button class="primary-button" type="submit">Add product</button>
                 </form>
                 <div id="inventory-list" class="inventory-list"></div>
