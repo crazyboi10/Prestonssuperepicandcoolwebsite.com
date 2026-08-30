@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,95 +7,573 @@
     <title>Preston's 3D Prints</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
     <header class="site-header">
-        <div class="brand">PRESTON'S <span>3D PRINTS</span></div>
+        <div class="brand">
+            PRESTON'S <span>3D PRINTS</span>
+        </div>
+
         <nav aria-label="Main navigation">
             <a href="#shop">Shop</a>
-            <a href="#how-it-works">How it works</a>
-            <button class="account-button" id="account-button" type="button">Account</button>
-            <button class="cart-button" id="cart-button" type="button">Cart <b id="cart-count">0</b></button>
-            <a class="exit-button" href="../index.html">Exit</a>
+
+            <a href="#how-it-works">
+                How it works
+            </a>
+
+            <button
+                class="account-button"
+                id="account-button"
+                type="button"
+            >
+                Account
+            </button>
+
+            <button
+                class="cart-button"
+                id="cart-button"
+                type="button"
+            >
+                Cart <b id="cart-count">0</b>
+            </button>
+
+            <a
+                class="exit-button"
+                href="../index.html"
+            >
+                Exit
+            </a>
         </nav>
     </header>
 
+
     <main>
+
+        <!-- HERO -->
+
         <section class="hero">
+
             <div class="hero-copy">
-                <p class="eyebrow">Small-batch 3D prints</p>
-                <h1>Objects with a little more <em>personality.</em></h1>
-                <p class="hero-text">Useful, weird, and made one layer at a time. Browse the current drop and grab your favorites before they disappear.</p>
-                <a class="primary-button" href="#shop">Browse the drop <span aria-hidden="true">&#8595;</span></a>
+                <p class="eyebrow">
+                    Small-batch 3D prints
+                </p>
+
+                <h1>
+                    Objects with a little more
+                    <em>personality.</em>
+                </h1>
+
+                <p class="hero-text">
+                    Useful, weird, and made one layer at a time.
+                    Browse the current drop and grab your favorites
+                    before they disappear.
+                </p>
+
+                <a
+                    class="primary-button"
+                    href="#shop"
+                >
+                    Browse the drop
+                    <span aria-hidden="true">&#8595;</span>
+                </a>
             </div>
-            <div class="hero-object" aria-label="Abstract 3D printed objects illustration">
+
+
+            <div
+                class="hero-object"
+                aria-label="Abstract 3D printed objects illustration"
+            >
                 <div class="shape shape-one"></div>
                 <div class="shape shape-two"></div>
                 <div class="shape shape-three"></div>
-                <span>MADE<br>BY<br>PRESTON</span>
+
+                <span>
+                    MADE<br>
+                    BY<br>
+                    PRESTON
+                </span>
             </div>
+
         </section>
 
-        <section class="shop-section" id="shop">
+
+        <!-- SHOP -->
+
+        <section
+            class="shop-section"
+            id="shop"
+        >
+
             <div class="section-heading">
+
                 <div>
-                    <p class="eyebrow">The current collection</p>
-                    <h2>Fresh off the printer</h2>
+                    <p class="eyebrow">
+                        The current collection
+                    </p>
+
+                    <h2>
+                        Fresh off the printer
+                    </h2>
                 </div>
-                <button class="text-button" id="inventory-toggle" type="button" hidden>Manage inventory <span aria-hidden="true">&#8599;</span></button>
+
+
+                <button
+                    class="text-button"
+                    id="inventory-toggle"
+                    type="button"
+                    hidden
+                >
+                    Manage inventory
+                    <span aria-hidden="true">
+                        &#8599;
+                    </span>
+                </button>
+
             </div>
-            <div class="inventory-panel" id="inventory-panel" hidden>
+
+
+            <!-- INVENTORY PANEL -->
+
+            <div
+                class="inventory-panel"
+                id="inventory-panel"
+                hidden
+            >
+
                 <div class="panel-heading">
-                    <div><p class="eyebrow">Studio tools</p><h2>Inventory desk</h2></div>
-                    <button class="icon-button" id="inventory-close" type="button" aria-label="Close inventory">&#10005;</button>
+
+                    <div>
+                        <p class="eyebrow">
+                            Studio tools
+                        </p>
+
+                        <h2>
+                            Inventory desk
+                        </h2>
+                    </div>
+
+                    <button
+                        class="icon-button"
+                        id="inventory-close"
+                        type="button"
+                        aria-label="Close inventory"
+                    >
+                        &#10005;
+                    </button>
+
                 </div>
-                <p class="panel-note">Changes are saved online in Supabase. Run the latest <strong>supabase-schema.sql</strong> first to enable product images. Replace the order email in <strong>script-supabase.js</strong> before sharing the link.</p>
-                <form id="product-form" class="product-form">
-                    <input id="product-name" type="text" placeholder="Product name" required>
-                    <input id="product-price" type="number" min="0" step="0.01" placeholder="Price" required>
-                    <input id="product-stock" type="number" min="0" step="1" placeholder="Stock" required>
-                    <select id="product-color" aria-label="Product color"><option value="coral">Coral</option><option value="lime">Lime</option><option value="sky">Sky</option><option value="gold">Gold</option></select>
-                    <input id="product-image" type="file" accept="image/png,image/jpeg,image/webp" aria-label="Product image">
-                    <button class="primary-button" type="submit">Add product</button>
+
+
+                <p class="panel-note">
+                    Changes are saved online in Supabase.
+                    Run the latest
+                    <strong>supabase-schema.sql</strong>
+                    first to enable product images.
+                </p>
+
+
+                <form
+                    id="product-form"
+                    class="product-form"
+                >
+
+                    <input
+                        id="product-name"
+                        type="text"
+                        placeholder="Product name"
+                        required
+                    >
+
+                    <input
+                        id="product-price"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        placeholder="Price"
+                        required
+                    >
+
+                    <input
+                        id="product-stock"
+                        type="number"
+                        min="0"
+                        step="1"
+                        placeholder="Stock"
+                        required
+                    >
+
+                    <select
+                        id="product-color"
+                        aria-label="Product color"
+                    >
+                        <option value="coral">
+                            Coral
+                        </option>
+
+                        <option value="lime">
+                            Lime
+                        </option>
+
+                        <option value="sky">
+                            Sky
+                        </option>
+
+                        <option value="gold">
+                            Gold
+                        </option>
+                    </select>
+
+
+                    <input
+                        id="product-image"
+                        type="file"
+                        accept="image/png,image/jpeg,image/webp"
+                        aria-label="Product image"
+                    >
+
+
+                    <button
+                        class="primary-button"
+                        type="submit"
+                    >
+                        Add product
+                    </button>
+
                 </form>
-                <div id="inventory-list" class="inventory-list"></div>
+
+
+                <div
+                    id="inventory-list"
+                    class="inventory-list"
+                ></div>
+
             </div>
-            <div class="product-grid" id="product-grid"></div>
+
+
+            <!-- PRODUCT GRID -->
+
+            <div
+                class="product-grid"
+                id="product-grid"
+            ></div>
+
         </section>
 
-        <section class="how-section" id="how-it-works">
-            <p class="eyebrow">Simple by design</p>
-            <div class="steps"><div><strong>01</strong><h3>Pick a print</h3><p>Add an in-stock piece to your cart.</p></div><div><strong>02</strong><h3>Send your order</h3><p>Share your details through the checkout form.</p></div><div><strong>03</strong><h3>Get something cool</h3><p>Preston confirms the total and delivery details.</p></div></div>
+
+        <!-- HOW IT WORKS -->
+
+        <section
+            class="how-section"
+            id="how-it-works"
+        >
+
+            <p class="eyebrow">
+                Simple by design
+            </p>
+
+
+            <div class="steps">
+
+                <div>
+                    <strong>01</strong>
+
+                    <h3>
+                        Pick a print
+                    </h3>
+
+                    <p>
+                        Add an in-stock piece to your cart.
+                    </p>
+                </div>
+
+
+                <div>
+                    <strong>02</strong>
+
+                    <h3>
+                        Checkout
+                    </h3>
+
+                    <p>
+                        Pay securely through Stripe.
+                    </p>
+                </div>
+
+
+                <div>
+                    <strong>03</strong>
+
+                    <h3>
+                        Get something cool
+                    </h3>
+
+                    <p>
+                        Preston prepares your order for delivery or pickup.
+                    </p>
+                </div>
+
+            </div>
+
         </section>
+
     </main>
 
-    <aside class="cart-drawer" id="cart-drawer" aria-label="Shopping cart" aria-hidden="true">
-        <div class="drawer-heading"><div><p class="eyebrow">Your picks</p><h2>Cart</h2></div><button class="icon-button" id="cart-close" type="button" aria-label="Close cart">&#10005;</button></div>
-        <div id="cart-items" class="cart-items"></div>
-        <div class="cart-footer"><div class="total-row"><span>Total</span><strong id="cart-total">$0.00</strong></div><button class="primary-button full-width" id="checkout-button" type="button">Place order request</button><p class="secure-note">You arrange payment directly with Preston. No paid service or card processing is used.</p></div>
+
+    <!-- SHOPPING CART -->
+
+    <aside
+        class="cart-drawer"
+        id="cart-drawer"
+        aria-label="Shopping cart"
+        aria-hidden="true"
+    >
+
+        <div class="drawer-heading">
+
+            <div>
+                <p class="eyebrow">
+                    Your picks
+                </p>
+
+                <h2>
+                    Cart
+                </h2>
+            </div>
+
+
+            <button
+                class="icon-button"
+                id="cart-close"
+                type="button"
+                aria-label="Close cart"
+            >
+                &#10005;
+            </button>
+
+        </div>
+
+
+        <div
+            id="cart-items"
+            class="cart-items"
+        ></div>
+
+
+        <div class="cart-footer">
+
+            <div class="total-row">
+
+                <span>
+                    Total
+                </span>
+
+                <strong id="cart-total">
+                    $0.00
+                </strong>
+
+            </div>
+
+
+            <button
+                class="primary-button full-width"
+                id="checkout-button"
+                type="button"
+            >
+                Checkout with Stripe
+            </button>
+
+
+            <p class="secure-note">
+                Secure payment powered by Stripe.
+            </p>
+
+        </div>
+
     </aside>
-    <div class="overlay" id="overlay" hidden></div>
+
+
+    <!-- CART OVERLAY -->
+
+    <div
+        class="overlay"
+        id="overlay"
+        hidden
+    ></div>
+
+
+    <!-- ACCOUNT DIALOG -->
 
     <dialog id="account-dialog">
-        <button class="icon-button dialog-close" id="account-close" type="button" aria-label="Close account">&#10005;</button>
+
+        <button
+            class="icon-button dialog-close"
+            id="account-close"
+            type="button"
+            aria-label="Close account"
+        >
+            &#10005;
+        </button>
+
+
+        <!-- SIGNED OUT -->
+
         <div id="account-signed-out">
-            <p class="eyebrow">Your Preston Prints account</p><h2>Keep your cart handy.</h2>
-            <p class="dialog-note">Create a free customer account to save your cart in this browser.</p>
-            <form id="customer-form" class="account-form"><label>Email<input id="customer-account-email" type="email" required></label><label>Password<input id="customer-account-password" type="password" minlength="4" required></label><button class="primary-button full-width" type="submit">Create customer account</button></form>
+
+            <p class="eyebrow">
+                Your Preston Prints account
+            </p>
+
+            <h2>
+                Keep your cart handy.
+            </h2>
+
+            <p class="dialog-note">
+                Create a free customer account to save your cart online.
+            </p>
+
+
+            <form
+                id="customer-form"
+                class="account-form"
+            >
+
+                <label>
+                    Email
+
+                    <input
+                        id="customer-account-email"
+                        type="email"
+                        required
+                    >
+                </label>
+
+
+                <label>
+                    Password
+
+                    <input
+                        id="customer-account-password"
+                        type="password"
+                        minlength="4"
+                        required
+                    >
+                </label>
+
+
+                <button
+                    class="primary-button full-width"
+                    type="submit"
+                >
+                    Create customer account
+                </button>
+
+            </form>
+
+
             <hr>
-            <p class="eyebrow">Sign in</p><p class="dialog-note">Sign in with any existing account. Your owner account automatically gets the inventory tools.</p>
-            <form id="login-form" class="account-form"><label>Email<input id="login-email" type="email" required></label><label>Password<input id="login-password" type="password" minlength="4" required></label><button class="secondary-button full-width" type="submit">Sign in</button></form>
-            <p class="form-message" id="account-message" role="status"></p>
+
+
+            <p class="eyebrow">
+                Sign in
+            </p>
+
+
+            <p class="dialog-note">
+                Sign in with any existing account.
+                Your owner account automatically gets
+                the inventory tools.
+            </p>
+
+
+            <form
+                id="login-form"
+                class="account-form"
+            >
+
+                <label>
+                    Email
+
+                    <input
+                        id="login-email"
+                        type="email"
+                        required
+                    >
+                </label>
+
+
+                <label>
+                    Password
+
+                    <input
+                        id="login-password"
+                        type="password"
+                        minlength="4"
+                        required
+                    >
+                </label>
+
+
+                <button
+                    class="secondary-button full-width"
+                    type="submit"
+                >
+                    Sign in
+                </button>
+
+            </form>
+
+
+            <p
+                class="form-message"
+                id="account-message"
+                role="status"
+            ></p>
+
         </div>
-        <div id="account-signed-in" hidden>
-            <p class="eyebrow">Signed in</p><h2 id="account-name">Account</h2><p class="dialog-note" id="account-role"></p><button class="secondary-button full-width" id="sign-out" type="button">Sign out</button>
+
+
+        <!-- SIGNED IN -->
+
+        <div
+            id="account-signed-in"
+            hidden
+        >
+
+            <p class="eyebrow">
+                Signed in
+            </p>
+
+            <h2 id="account-name">
+                Account
+            </h2>
+
+            <p
+                class="dialog-note"
+                id="account-role"
+            ></p>
+
+
+            <button
+                class="secondary-button full-width"
+                id="sign-out"
+                type="button"
+            >
+                Sign out
+            </button>
+
         </div>
+
     </dialog>
 
-    <dialog id="checkout-dialog">
-        <button class="icon-button dialog-close" id="checkout-close" type="button" aria-label="Close checkout">&#10005;</button>
-        <p class="eyebrow">Almost there</p><h2>Send your order</h2><p class="dialog-note">Tell Preston where to reach you. A pre-filled email will open so you can confirm the order.</p>
-        <form id="checkout-form"><label>Name<input id="customer-name" type="text" required></label><label>Email<input id="customer-email" type="email" required></label><label>Notes <span>(delivery, color, etc.)</span><textarea id="customer-notes" rows="3"></textarea></label><button class="primary-button full-width" type="submit">Send order</button></form>
-    </dialog>
-    <script type="module" src="script-supabase.js"></script>
+
+    <!-- JAVASCRIPT -->
+
+    <script
+        type="module"
+        src="script-supabase.js"
+    ></script>
+
 </body>
 </html>
+```
