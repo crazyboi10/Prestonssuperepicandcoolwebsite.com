@@ -1,17 +1,17 @@
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    margin: 0;
     min-height: 100vh;
+    font-family: Arial, sans-serif;
 
     display: flex;
     justify-content: center;
     align-items: center;
+
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
 }
 
 .game {
@@ -19,57 +19,51 @@ body {
     padding: 30px;
     border-radius: 20px;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
 
 h1 {
+    margin: 0 0 10px 0;
     font-size: 40px;
-    margin-bottom: 10px;
 }
 
 #status {
+    margin: 0 0 20px 0;
     font-size: 20px;
-    margin-bottom: 20px;
     font-weight: bold;
 }
 
 .board {
     display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-template-rows: repeat(3, 100px);
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px;
     gap: 8px;
     margin-bottom: 25px;
-
-    position: relative;
-    z-index: 10;
 }
 
 .cell {
     width: 100px;
     height: 100px;
+    padding: 0;
+    margin: 0;
 
-    border: none;
+    border: 2px solid #333;
     border-radius: 10px;
 
     background: #eeeeee;
 
+    font-family: Arial, sans-serif;
     font-size: 55px;
     font-weight: bold;
 
     cursor: pointer;
-
-    transition: 0.15s;
-
-    position: relative;
-    z-index: 11;
 }
+
 .cell:hover {
     background: #dddddd;
-    transform: scale(1.03);
 }
 
-.cell:active {
-    transform: scale(0.97);
+.cell.winner {
+    background: #90ee90;
 }
 
 .buttons {
@@ -79,8 +73,7 @@ h1 {
 }
 
 #reset,
-#exit,
-#playAgain {
+#exit {
     border: none;
     border-radius: 10px;
 
@@ -93,45 +86,9 @@ h1 {
     font-weight: bold;
 
     cursor: pointer;
-
-    transition: 0.2s;
 }
 
 #reset:hover,
-#exit:hover,
-#playAgain:hover {
+#exit:hover {
     background: #555555;
-    transform: scale(1.05);
-}
-
-#reset:active,
-#exit:active,
-#playAgain:active {
-    transform: scale(0.97);
-}
-
-.winner {
-    background: #90ee90;
-}
-
-.exit-screen {
-    display: none;
-
-    background: white;
-    padding: 40px;
-
-    border-radius: 20px;
-
-    text-align: center;
-
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-}
-
-.exit-screen h1 {
-    margin-bottom: 15px;
-}
-
-.exit-screen p {
-    font-size: 20px;
-    margin-bottom: 25px;
 }
