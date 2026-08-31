@@ -19,46 +19,36 @@ const winningCombinations = [
 ];
 
 
-// When a square is clicked
-cells.forEach(function(cell, index) {
+// -------------------------
+// SQUARE CLICKING
+// -------------------------
 
-    cell.addEventListener("click", function() {
+for (let i = 0; i < cells.length; i++) {
 
-        // Don't allow moves after the game is over
+    cells[i].addEventListener("click", function () {
+
         if (gameOver) {
             return;
         }
 
-        // Don't allow a square to be used twice
-        if (board[index] !== "") {
+        if (board[i] !== "") {
             return;
         }
 
-        // Put X or O into the board
-        board[index] = currentPlayer;
-        cell.textContent = currentPlayer;
+        board[i] = currentPlayer;
 
+        cells[i].textContent = currentPlayer;
 
-        // Check for a winner
-        const winner = checkWinner();
-
-        if (winner !== null) {
+        if (checkWinner()) {
 
             gameOver = true;
 
             statusText.textContent =
                 "Player " + currentPlayer + " wins!";
 
-            // Highlight the winning squares
-            winner.forEach(function(position) {
-                cells[position].classList.add("winner");
-            });
-
             return;
         }
 
-
-        // Check for a draw
         if (!board.includes("")) {
 
             gameOver = true;
@@ -68,8 +58,6 @@ cells.forEach(function(cell, index) {
             return;
         }
 
-
-        // Change player
         if (currentPlayer === "X") {
             currentPlayer = "O";
         } else {
@@ -78,38 +66,42 @@ cells.forEach(function(cell, index) {
 
         statusText.textContent =
             "Player " + currentPlayer + "'s turn";
-
     });
+}
 
-});
 
+// -------------------------
+// CHECK WINNER
+// -------------------------
 
-// Check if somebody won
 function checkWinner() {
 
     for (let i = 0; i < winningCombinations.length; i++) {
 
-        const combination = winningCombinations[i];
+        let combination = winningCombinations[i];
 
-        const a = combination[0];
-        const b = combination[1];
-        const c = combination[2];
+        let a = combination[0];
+        let b = combination[1];
+        let c = combination[2];
 
         if (
             board[a] !== "" &&
             board[a] === board[b] &&
             board[a] === board[c]
         ) {
-            return combination;
+            return true;
         }
     }
 
-    return null;
+    return false;
 }
 
 
-// Reset button
-resetButton.addEventListener("click", function() {
+// -------------------------
+// RESET
+// -------------------------
+
+resetButton.addEventListener("click", function () {
 
     board = ["", "", "", "", "", "", "", ""];
 
@@ -119,19 +111,20 @@ resetButton.addEventListener("click", function() {
 
     statusText.textContent = "Player X's turn";
 
-    cells.forEach(function(cell) {
+    for (let i = 0; i < cells.length; i++) {
 
-        cell.textContent = "";
+        cells[i].textContent = "";
 
-        cell.classList.remove("winner");
-
-    });
-
+        cells[i].classList.remove("winner");
+    }
 });
 
 
-// Exit button
-exitButton.addEventListener("click", function() {
+// -------------------------
+// EXIT
+// -------------------------
+
+exitButton.addEventListener("click", function () {
 
     window.location.href = "../index.html";
 
