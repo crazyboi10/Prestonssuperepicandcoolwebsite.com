@@ -98,8 +98,7 @@ function resetGame() {
 }
 
 exitButton.addEventListener("click", () => {
-    game.style.display = "none";
-    exitScreen.style.display = "block";
+    window.location.href = "index.html";
 });
 
 playAgainButton.addEventListener("click", () => {
