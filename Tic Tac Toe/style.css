@@ -39,6 +39,9 @@ h1 {
     grid-template-rows: repeat(3, 100px);
     gap: 8px;
     margin-bottom: 25px;
+
+    position: relative;
+    z-index: 10;
 }
 
 .cell {
@@ -56,8 +59,10 @@ h1 {
     cursor: pointer;
 
     transition: 0.15s;
-}
 
+    position: relative;
+    z-index: 11;
+}
 .cell:hover {
     background: #dddddd;
     transform: scale(1.03);
