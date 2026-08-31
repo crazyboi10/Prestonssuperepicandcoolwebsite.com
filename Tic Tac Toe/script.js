@@ -1,6 +1,12 @@
 const cells = document.querySelectorAll(".cell");
 const statusText = document.getElementById("status");
+
 const resetButton = document.getElementById("reset");
+const exitButton = document.getElementById("exit");
+const playAgainButton = document.getElementById("playAgain");
+
+const game = document.getElementById("game");
+const exitScreen = document.getElementById("exitScreen");
 
 let board = ["", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
@@ -23,17 +29,13 @@ cells.forEach(cell => {
     cell.addEventListener("click", () => {
         const index = cell.dataset.index;
 
-        // Don't allow moves if the game is over
-        // or if the square is already filled
         if (gameOver || board[index] !== "") {
             return;
         }
 
-        // Put the player's letter on the board
         board[index] = currentPlayer;
         cell.textContent = currentPlayer;
 
-        // Check if someone won
         const winningCombination = checkWinner();
 
         if (winningCombination) {
@@ -41,7 +43,6 @@ cells.forEach(cell => {
 
             statusText.textContent = `Player ${currentPlayer} wins!`;
 
-            // Highlight the winning squares
             winningCombination.forEach(index => {
                 cells[index].classList.add("winner");
             });
@@ -49,14 +50,12 @@ cells.forEach(cell => {
             return;
         }
 
-        // Check for a draw
         if (!board.includes("")) {
             gameOver = true;
             statusText.textContent = "It's a draw!";
             return;
         }
 
-        // Switch players
         if (currentPlayer === "X") {
             currentPlayer = "O";
         } else {
@@ -97,3 +96,15 @@ function resetGame() {
         cell.classList.remove("winner");
     });
 }
+
+exitButton.addEventListener("click", () => {
+    game.style.display = "none";
+    exitScreen.style.display = "block";
+});
+
+playAgainButton.addEventListener("click", () => {
+    exitScreen.style.display = "none";
+    game.style.display = "block";
+
+    resetGame();
+});

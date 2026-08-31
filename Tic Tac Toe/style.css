@@ -67,7 +67,15 @@ h1 {
     transform: scale(0.97);
 }
 
-#reset {
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+#reset,
+#exit,
+#playAgain {
     border: none;
     border-radius: 10px;
 
@@ -84,15 +92,41 @@ h1 {
     transition: 0.2s;
 }
 
-#reset:hover {
+#reset:hover,
+#exit:hover,
+#playAgain:hover {
     background: #555555;
     transform: scale(1.05);
 }
 
-#reset:active {
+#reset:active,
+#exit:active,
+#playAgain:active {
     transform: scale(0.97);
 }
 
 .winner {
     background: #90ee90;
+}
+
+.exit-screen {
+    display: none;
+
+    background: white;
+    padding: 40px;
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.exit-screen h1 {
+    margin-bottom: 15px;
+}
+
+.exit-screen p {
+    font-size: 20px;
+    margin-bottom: 25px;
 }

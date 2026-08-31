@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +9,7 @@
 </head>
 <body>
 
-    <div class="game">
+    <div class="game" id="game">
         <h1>Tic Tac Toe</h1>
 
         <p id="status">Player X's turn</p>
@@ -27,9 +28,19 @@
             <button class="cell" data-index="8"></button>
         </div>
 
-        <button id="reset">Reset Game</button>
+        <div class="buttons">
+            <button id="reset">Reset Game</button>
+            <button id="exit">Exit Game</button>
+        </div>
+    </div>
+
+    <div class="exit-screen" id="exitScreen">
+        <h1>Game Exited</h1>
+        <p>Thanks for playing Tic Tac Toe!</p>
+        <button id="playAgain">Play Again</button>
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
+```
