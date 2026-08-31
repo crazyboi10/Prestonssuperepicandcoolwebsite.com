@@ -98,7 +98,7 @@ function resetGame() {
 }
 
 exitButton.addEventListener("click", () => {
-    window.location.href = "index.html";
+    window.location.href = "../index.html";
 });
 
 playAgainButton.addEventListener("click", () => {
