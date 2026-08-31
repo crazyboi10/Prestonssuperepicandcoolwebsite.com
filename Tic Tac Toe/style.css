@@ -1,0 +1,98 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+#status {
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 8px;
+    margin-bottom: 25px;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #eeeeee;
+
+    font-size: 55px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.15s;
+}
+
+.cell:hover {
+    background: #dddddd;
+    transform: scale(1.03);
+}
+
+.cell:active {
+    transform: scale(0.97);
+}
+
+#reset {
+    border: none;
+    border-radius: 10px;
+
+    background: #333333;
+    color: white;
+
+    padding: 12px 25px;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#reset:hover {
+    background: #555555;
+    transform: scale(1.05);
+}
+
+#reset:active {
+    transform: scale(0.97);
+}
+
+.winner {
+    background: #90ee90;
+}
