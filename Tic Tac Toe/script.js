@@ -1,12 +1,7 @@
 const cells = document.querySelectorAll(".cell");
 const statusText = document.getElementById("status");
-
 const resetButton = document.getElementById("reset");
 const exitButton = document.getElementById("exit");
-const playAgainButton = document.getElementById("playAgain");
-
-const game = document.getElementById("game");
-const exitScreen = document.getElementById("exitScreen");
 
 let board = ["", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
@@ -16,18 +11,17 @@ const winningCombinations = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
-
     [0, 3, 6],
     [1, 4, 7],
     [2, 5, 8],
-
     [0, 4, 8],
     [2, 4, 6]
 ];
 
-cells.forEach(cell => {
-    cell.addEventListener("click", () => {
-        const index = cell.dataset.index;
+cells.forEach(function(cell) {
+    cell.addEventListener("click", function() {
+
+        const index = parseInt(cell.dataset.index);
 
         if (gameOver || board[index] !== "") {
             return;
@@ -36,15 +30,14 @@ cells.forEach(cell => {
         board[index] = currentPlayer;
         cell.textContent = currentPlayer;
 
-        const winningCombination = checkWinner();
+        const winner = checkWinner();
 
-        if (winningCombination) {
+        if (winner) {
             gameOver = true;
+            statusText.textContent = "Player " + currentPlayer + " wins!";
 
-            statusText.textContent = `Player ${currentPlayer} wins!`;
-
-            winningCombination.forEach(index => {
-                cells[index].classList.add("winner");
+            winner.forEach(function(position) {
+                cells[position].classList.add("winner");
             });
 
             return;
@@ -62,13 +55,20 @@ cells.forEach(cell => {
             currentPlayer = "X";
         }
 
-        statusText.textContent = `Player ${currentPlayer}'s turn`;
+        statusText.textContent = "Player " + currentPlayer + "'s turn";
     });
 });
 
+
 function checkWinner() {
-    for (const combination of winningCombinations) {
-        const [a, b, c] = combination;
+
+    for (let i = 0; i < winningCombinations.length; i++) {
+
+        const combination = winningCombinations[i];
+
+        const a = combination[0];
+        const b = combination[1];
+        const c = combination[2];
 
         if (
             board[a] !== "" &&
@@ -82,28 +82,23 @@ function checkWinner() {
     return null;
 }
 
-resetButton.addEventListener("click", resetGame);
 
-function resetGame() {
+resetButton.addEventListener("click", function() {
+
     board = ["", "", "", "", "", "", "", ""];
+
     currentPlayer = "X";
     gameOver = false;
 
     statusText.textContent = "Player X's turn";
 
-    cells.forEach(cell => {
+    cells.forEach(function(cell) {
         cell.textContent = "";
         cell.classList.remove("winner");
     });
-}
-
-exitButton.addEventListener("click", () => {
-    window.location.href = "../index.html";
 });
 
-playAgainButton.addEventListener("click", () => {
-    exitScreen.style.display = "none";
-    game.style.display = "block";
 
-    resetGame();
+exitButton.addEventListener("click", function() {
+    window.location.href = "../index.html";
 });
