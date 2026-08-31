@@ -3,7 +3,7 @@ const statusText = document.getElementById("status");
 const resetButton = document.getElementById("reset");
 const exitButton = document.getElementById("exit");
 
-let board = ["", "", "", "", "", "", "", ""];
+let board = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
 let gameOver = false;
 
