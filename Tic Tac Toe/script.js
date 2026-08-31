@@ -18,24 +18,38 @@ const winningCombinations = [
     [2, 4, 6]
 ];
 
-cells.forEach(function(cell) {
+
+// When a square is clicked
+cells.forEach(function(cell, index) {
+
     cell.addEventListener("click", function() {
 
-        const index = parseInt(cell.dataset.index);
-
-        if (gameOver || board[index] !== "") {
+        // Don't allow moves after the game is over
+        if (gameOver) {
             return;
         }
 
+        // Don't allow a square to be used twice
+        if (board[index] !== "") {
+            return;
+        }
+
+        // Put X or O into the board
         board[index] = currentPlayer;
         cell.textContent = currentPlayer;
 
+
+        // Check for a winner
         const winner = checkWinner();
 
-        if (winner) {
-            gameOver = true;
-            statusText.textContent = "Player " + currentPlayer + " wins!";
+        if (winner !== null) {
 
+            gameOver = true;
+
+            statusText.textContent =
+                "Player " + currentPlayer + " wins!";
+
+            // Highlight the winning squares
             winner.forEach(function(position) {
                 cells[position].classList.add("winner");
             });
@@ -43,23 +57,34 @@ cells.forEach(function(cell) {
             return;
         }
 
+
+        // Check for a draw
         if (!board.includes("")) {
+
             gameOver = true;
+
             statusText.textContent = "It's a draw!";
+
             return;
         }
 
+
+        // Change player
         if (currentPlayer === "X") {
             currentPlayer = "O";
         } else {
             currentPlayer = "X";
         }
 
-        statusText.textContent = "Player " + currentPlayer + "'s turn";
+        statusText.textContent =
+            "Player " + currentPlayer + "'s turn";
+
     });
+
 });
 
 
+// Check if somebody won
 function checkWinner() {
 
     for (let i = 0; i < winningCombinations.length; i++) {
@@ -83,22 +108,31 @@ function checkWinner() {
 }
 
 
+// Reset button
 resetButton.addEventListener("click", function() {
 
     board = ["", "", "", "", "", "", "", ""];
 
     currentPlayer = "X";
+
     gameOver = false;
 
     statusText.textContent = "Player X's turn";
 
     cells.forEach(function(cell) {
+
         cell.textContent = "";
+
         cell.classList.remove("winner");
+
     });
+
 });
 
 
+// Exit button
 exitButton.addEventListener("click", function() {
+
     window.location.href = "../index.html";
+
 });
