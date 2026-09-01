@@ -18,18 +18,32 @@ const ads = [
         color: 'linear-gradient(135deg, #7dd3fc, #38bdf8)'
     },
     {
-        title: 'Tic Tac Toe',
-        text: 'Challenge a friend in a quick classic game.',
+        title: 'Hangman',
+        text: 'Guess the word before the hangman is complete.',
         button: 'Play Now',
-        link: 'Tic%20Tac%20Toe/index.html',
-        color: 'linear-gradient(135deg, #86efac, #22c55e)'
+        link: 'Hangman/index.html',
+        color: 'linear-gradient(135deg, #c4b5fd, #8b5cf6)'
     },
     {
-        title: 'Minesweeper',
-        text: 'Test your focus with a fast puzzle challenge.',
+        title: 'Connect 4',
+        text: 'Drop discs and connect four in a row.',
         button: 'Play Now',
-        link: 'Minesweeper/index.html',
-        color: 'linear-gradient(135deg, #f9a8d4, #ec4899)'
+        link: 'Connect4/index.html',
+        color: 'linear-gradient(135deg, #7dd3fc, #2563eb)'
+    },
+    {
+        title: 'Rock Paper Scissors',
+        text: 'Challenge the computer or a friend to a quick showdown.',
+        button: 'Play Now',
+        link: 'RPS/index.html',
+        color: 'linear-gradient(135deg, #fcd34d, #f59e0b)'
+    },
+    {
+        title: 'Pong',
+        text: 'Jump into a retro arcade match against AI or a friend.',
+        button: 'Play Now',
+        link: 'Pong/index.html',
+        color: 'linear-gradient(135deg, #86efac, #16a34a)'
     }
 ];
 
