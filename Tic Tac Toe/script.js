@@ -103,7 +103,7 @@ function checkWinner() {
 
 resetButton.addEventListener("click", function () {
 
-    board = ["", "", "", "", "", "", "", ""];
+    board = ["", "", "", "", "", "", "", "", ""];
 
     currentPlayer = "X";
 
