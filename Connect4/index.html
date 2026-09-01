@@ -53,9 +53,11 @@
     .controls {
       display: flex;
       justify-content: center;
+      gap: 12px;
       margin-top: 20px;
+      flex-wrap: wrap;
     }
-    .restart {
+    .restart, .exit {
       background: #22c55e;
       border: none;
       color: white;
@@ -64,6 +66,9 @@
       padding: 12px 22px;
       border-radius: 10px;
       cursor: pointer;
+    }
+    .exit {
+      background: #ef4444;
     }
   </style>
 </head>
@@ -74,6 +79,7 @@
     <div id="board" class="board" aria-label="Connect 4 board"></div>
     <div class="controls">
       <button id="restart" class="restart">New Game</button>
+      <button id="exit" class="exit">Exit</button>
     </div>
   </div>
 
@@ -83,6 +89,7 @@
     const boardEl = document.getElementById('board');
     const statusEl = document.getElementById('status');
     const restartBtn = document.getElementById('restart');
+    const exitBtn = document.getElementById('exit');
 
     let board = Array.from({ length: ROWS }, () => Array(COLS).fill(''));
     let currentPlayer = 'red';
@@ -187,6 +194,9 @@
     }
 
     restartBtn.addEventListener('click', resetGame);
+    exitBtn.addEventListener('click', () => {
+      window.location.href = '../index.html';
+    });
     createBoard();
   </script>
 </body>

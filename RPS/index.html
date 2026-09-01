@@ -55,9 +55,14 @@
       font-size: 1.3rem;
       min-height: 32px;
     }
-    .restart {
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
       margin-top: 18px;
-      background: #22c55e;
+      flex-wrap: wrap;
+    }
+    .mode-toggle, .restart, .exit {
       border: none;
       color: white;
       font-weight: bold;
@@ -65,14 +70,23 @@
       border-radius: 10px;
       cursor: pointer;
     }
+    .mode-toggle {
+      background: #2563eb;
+    }
+    .restart {
+      background: #22c55e;
+    }
+    .exit {
+      background: #ef4444;
+    }
   </style>
 </head>
 <body>
   <div class="game">
     <h1>Rock Paper Scissors</h1>
     <div class="scores">
-      <div>You: <span id="playerScore">0</span></div>
-      <div>Computer: <span id="computerScore">0</span></div>
+      <div id="playerLabel">You: <span id="playerScore">0</span></div>
+      <div id="computerLabel">Computer: <span id="computerScore">0</span></div>
     </div>
     <div class="choices">
       <button class="choice" data-choice="rock">Rock</button>
@@ -80,45 +94,113 @@
       <button class="choice" data-choice="scissors">Scissors</button>
     </div>
     <div id="result" class="result">Choose your move!</div>
-    <button class="restart" id="restart">Reset Score</button>
+    <div class="controls">
+      <button class="mode-toggle" id="modeToggle">Play vs Friend</button>
+      <button class="restart" id="restart">Reset Score</button>
+      <button class="exit" id="exit">Exit</button>
+    </div>
   </div>
 
   <script>
     const choices = ['rock', 'paper', 'scissors'];
     const buttons = document.querySelectorAll('.choice');
     const resultEl = document.getElementById('result');
-    const playerScoreEl = document.getElementById('playerScore');
-    const computerScoreEl = document.getElementById('computerScore');
+    const playerLabel = document.getElementById('playerLabel');
+    const computerLabel = document.getElementById('computerLabel');
     const restartBtn = document.getElementById('restart');
+    const exitBtn = document.getElementById('exit');
+    const modeToggleBtn = document.getElementById('modeToggle');
 
+    let playerScoreEl = document.getElementById('playerScore');
+    let computerScoreEl = document.getElementById('computerScore');
     let playerScore = 0;
     let computerScore = 0;
+    let isAiMode = true;
+    let waitingForPlayerTwo = false;
+    let playerOneChoice = null;
 
     function getComputerChoice() {
       return choices[Math.floor(Math.random() * choices.length)];
     }
 
-    function decideWinner(player, computer) {
-      if (player === computer) return 'Tie!';
-      if (
-        (player === 'rock' && computer === 'scissors') ||
-        (player === 'paper' && computer === 'rock') ||
-        (player === 'scissors' && computer === 'paper')
-      ) {
-        playerScore += 1;
-        return 'You win!';
+    function updateScoreboard() {
+      playerScoreEl.textContent = String(playerScore);
+      computerScoreEl.textContent = String(computerScore);
+    }
+
+    function setMode(nextAiMode) {
+      isAiMode = nextAiMode;
+      modeToggleBtn.textContent = isAiMode ? 'Play vs Friend' : 'Play vs AI';
+
+      if (isAiMode) {
+        playerLabel.innerHTML = 'You: <span id="playerScore">' + playerScore + '</span>';
+        computerLabel.innerHTML = 'Computer: <span id="computerScore">' + computerScore + '</span>';
+        resultEl.textContent = 'Choose your move!';
+      } else {
+        playerLabel.innerHTML = 'Player 1: <span id="playerScore">' + playerScore + '</span>';
+        computerLabel.innerHTML = 'Player 2: <span id="computerScore">' + computerScore + '</span>';
+        resultEl.textContent = 'Player 1, choose your move!';
       }
-      computerScore += 1;
-      return 'Computer wins!';
+
+      playerScoreEl = document.getElementById('playerScore');
+      computerScoreEl = document.getElementById('computerScore');
+      updateScoreboard();
+      waitingForPlayerTwo = false;
+      playerOneChoice = null;
     }
 
     function playRound(playerChoice) {
-      const computerChoice = getComputerChoice();
-      const outcome = decideWinner(playerChoice, computerChoice);
+      if (isAiMode) {
+        const computerChoice = getComputerChoice();
+        let outcome = 'Tie!';
 
-      playerScoreEl.textContent = playerScore;
-      computerScoreEl.textContent = computerScore;
-      resultEl.textContent = `You picked ${playerChoice}. Computer picked ${computerChoice}. ${outcome}`;
+        if (playerChoice === computerChoice) {
+          outcome = 'Tie!';
+        } else if (
+          (playerChoice === 'rock' && computerChoice === 'scissors') ||
+          (playerChoice === 'paper' && computerChoice === 'rock') ||
+          (playerChoice === 'scissors' && computerChoice === 'paper')
+        ) {
+          playerScore += 1;
+          outcome = 'You win!';
+        } else {
+          computerScore += 1;
+          outcome = 'Computer wins!';
+        }
+
+        updateScoreboard();
+        resultEl.textContent = `You picked ${playerChoice}. Computer picked ${computerChoice}. ${outcome}`;
+        return;
+      }
+
+      if (!waitingForPlayerTwo) {
+        playerOneChoice = playerChoice;
+        waitingForPlayerTwo = true;
+        resultEl.textContent = 'Player 2, choose your move!';
+        return;
+      }
+
+      const playerTwoChoice = playerChoice;
+      let outcome = 'Tie!';
+
+      if (playerOneChoice === playerTwoChoice) {
+        outcome = 'Tie!';
+      } else if (
+        (playerOneChoice === 'rock' && playerTwoChoice === 'scissors') ||
+        (playerOneChoice === 'paper' && playerTwoChoice === 'rock') ||
+        (playerOneChoice === 'scissors' && playerTwoChoice === 'paper')
+      ) {
+        playerScore += 1;
+        outcome = 'Player 1 wins!';
+      } else {
+        computerScore += 1;
+        outcome = 'Player 2 wins!';
+      }
+
+      resultEl.textContent = `Player 1 picked ${playerOneChoice}. Player 2 picked ${playerTwoChoice}. ${outcome}`;
+      updateScoreboard();
+      waitingForPlayerTwo = false;
+      playerOneChoice = null;
     }
 
     buttons.forEach(button => {
@@ -128,10 +210,25 @@
     restartBtn.addEventListener('click', () => {
       playerScore = 0;
       computerScore = 0;
-      playerScoreEl.textContent = 0;
-      computerScoreEl.textContent = 0;
-      resultEl.textContent = 'Choose your move!';
+      waitingForPlayerTwo = false;
+      playerOneChoice = null;
+      updateScoreboard();
+      resultEl.textContent = isAiMode ? 'Choose your move!' : 'Player 1, choose your move!';
     });
+
+    modeToggleBtn.addEventListener('click', () => {
+      const nextAiMode = !isAiMode;
+      playerScore = 0;
+      computerScore = 0;
+      setMode(nextAiMode);
+      updateScoreboard();
+    });
+
+    exitBtn.addEventListener('click', () => {
+      window.location.href = '../index.html';
+    });
+
+    setMode(true);
   </script>
 </body>
 </html>

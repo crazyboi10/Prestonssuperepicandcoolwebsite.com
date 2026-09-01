@@ -31,6 +31,27 @@
       font-weight: bold;
       margin-bottom: 12px;
     }
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .mode-toggle, .exit {
+      border: none;
+      color: white;
+      font-weight: bold;
+      padding: 10px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .mode-toggle {
+      background: #2563eb;
+    }
+    .exit {
+      background: #ef4444;
+    }
   </style>
 </head>
 <body>
@@ -38,22 +59,38 @@
     <h1>Pong</h1>
     <div class="score"><span id="score">0 - 0</span></div>
     <canvas id="gameCanvas" width="700" height="420"></canvas>
+    <div class="controls">
+      <button id="modeToggle" class="mode-toggle">Play vs Friend</button>
+      <button id="exit" class="exit">Exit</button>
+    </div>
   </div>
 
   <script>
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
     const scoreEl = document.getElementById('score');
+    const exitBtn = document.getElementById('exit');
+    const modeToggleBtn = document.getElementById('modeToggle');
 
-    const keys = { w: false, s: false };
+    const keys = { w: false, s: false, arrowUp: false, arrowDown: false };
     const paddleWidth = 14;
     const paddleHeight = 100;
     const paddleSpeed = 6;
     const ballSize = 12;
 
+    let isAiMode = true;
     let leftPaddle = { x: 20, y: 160, score: 0 };
     let rightPaddle = { x: canvas.width - 34, y: 160, score: 0 };
     let ball = { x: canvas.width / 2, y: canvas.height / 2, vx: 5, vy: 3 };
+
+    function resetMatch() {
+      leftPaddle.y = 160;
+      rightPaddle.y = 160;
+      leftPaddle.score = 0;
+      rightPaddle.score = 0;
+      updateScore();
+      resetBall();
+    }
 
     function resetBall() {
       ball.x = canvas.width / 2;
@@ -69,11 +106,16 @@
     function update() {
       if (keys.w) leftPaddle.y -= paddleSpeed;
       if (keys.s) leftPaddle.y += paddleSpeed;
-
       leftPaddle.y = Math.max(0, Math.min(canvas.height - paddleHeight, leftPaddle.y));
 
-      const target = ball.y - (rightPaddle.y + paddleHeight / 2) + 10;
-      rightPaddle.y += target * 0.12;
+      if (isAiMode) {
+        const target = ball.y - (rightPaddle.y + paddleHeight / 2) + 10;
+        rightPaddle.y += target * 0.12;
+      } else {
+        if (keys.arrowUp) rightPaddle.y -= paddleSpeed;
+        if (keys.arrowDown) rightPaddle.y += paddleSpeed;
+      }
+
       rightPaddle.y = Math.max(0, Math.min(canvas.height - paddleHeight, rightPaddle.y));
 
       ball.x += ball.vx;
@@ -138,15 +180,32 @@
     document.addEventListener('keydown', (event) => {
       if (event.key === 'w' || event.key === 'W') keys.w = true;
       if (event.key === 's' || event.key === 'S') keys.s = true;
+      if (event.key === 'ArrowUp') keys.arrowUp = true;
+      if (event.key === 'ArrowDown') keys.arrowDown = true;
     });
 
     document.addEventListener('keyup', (event) => {
       if (event.key === 'w' || event.key === 'W') keys.w = false;
       if (event.key === 's' || event.key === 'S') keys.s = false;
+      if (event.key === 'ArrowUp') keys.arrowUp = false;
+      if (event.key === 'ArrowDown') keys.arrowDown = false;
     });
 
-    updateScore();
-    resetBall();
+    function setMode(nextAiMode) {
+      isAiMode = nextAiMode;
+      modeToggleBtn.textContent = isAiMode ? 'Play vs Friend' : 'Play vs AI';
+      resetMatch();
+    }
+
+    modeToggleBtn.addEventListener('click', () => {
+      setMode(!isAiMode);
+    });
+
+    exitBtn.addEventListener('click', () => {
+      window.location.href = '../index.html';
+    });
+
+    setMode(true);
     requestAnimationFrame(loop);
   </script>
 </body>

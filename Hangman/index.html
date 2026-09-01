@@ -120,9 +120,11 @@
     .controls {
       display: flex;
       justify-content: center;
+      gap: 12px;
       margin-top: 18px;
+      flex-wrap: wrap;
     }
-    button.restart {
+    button.restart, button.exit {
       background: #38bdf8;
       color: white;
       border: none;
@@ -131,6 +133,9 @@
       font-weight: bold;
       font-size: 1rem;
       cursor: pointer;
+    }
+    button.exit {
+      background: #ef4444;
     }
     @media (max-width: 640px) {
       .layout { grid-template-columns: 1fr; }
@@ -157,6 +162,7 @@
         <div id="letters" class="letters"></div>
         <div class="controls">
           <button id="restart" class="restart">New Game</button>
+          <button id="exit" class="exit">Exit</button>
         </div>
       </div>
     </div>
@@ -171,6 +177,7 @@
     const wordEl = document.getElementById('word');
     const statusEl = document.getElementById('status');
     const restartBtn = document.getElementById('restart');
+    const exitBtn = document.getElementById('exit');
     const parts = [...document.querySelectorAll('.part')];
 
     let word = '';
@@ -255,6 +262,9 @@
     }
 
     restartBtn.addEventListener('click', startGame);
+    exitBtn.addEventListener('click', () => {
+      window.location.href = '../index.html';
+    });
     startGame();
   </script>
 </body>
