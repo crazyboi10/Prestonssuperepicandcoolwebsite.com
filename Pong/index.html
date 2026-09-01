@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pong</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #111827, #0f766e);
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+    .game {
+      text-align: center;
+    }
+    h1 { margin-bottom: 12px; }
+    canvas {
+      background: #111827;
+      border: 4px solid white;
+      border-radius: 12px;
+      width: min(88vw, 700px);
+      height: auto;
+    }
+    .score {
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="game">
+    <h1>Pong</h1>
+    <div class="score"><span id="score">0 - 0</span></div>
+    <canvas id="gameCanvas" width="700" height="420"></canvas>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const scoreEl = document.getElementById('score');
+
+    const keys = { w: false, s: false };
+    const paddleWidth = 14;
+    const paddleHeight = 100;
+    const paddleSpeed = 6;
+    const ballSize = 12;
+
+    let leftPaddle = { x: 20, y: 160, score: 0 };
+    let rightPaddle = { x: canvas.width - 34, y: 160, score: 0 };
+    let ball = { x: canvas.width / 2, y: canvas.height / 2, vx: 5, vy: 3 };
+
+    function resetBall() {
+      ball.x = canvas.width / 2;
+      ball.y = canvas.height / 2;
+      ball.vx = (Math.random() > 0.5 ? 1 : -1) * 5;
+      ball.vy = (Math.random() * 4 - 2);
+    }
+
+    function updateScore() {
+      scoreEl.textContent = `${leftPaddle.score} - ${rightPaddle.score}`;
+    }
+
+    function update() {
+      if (keys.w) leftPaddle.y -= paddleSpeed;
+      if (keys.s) leftPaddle.y += paddleSpeed;
+
+      leftPaddle.y = Math.max(0, Math.min(canvas.height - paddleHeight, leftPaddle.y));
+
+      const target = ball.y - (rightPaddle.y + paddleHeight / 2) + 10;
+      rightPaddle.y += target * 0.12;
+      rightPaddle.y = Math.max(0, Math.min(canvas.height - paddleHeight, rightPaddle.y));
+
+      ball.x += ball.vx;
+      ball.y += ball.vy;
+
+      if (ball.y <= 0 || ball.y + ballSize >= canvas.height) {
+        ball.vy *= -1;
+      }
+
+      if (
+        ball.x <= leftPaddle.x + paddleWidth &&
+        ball.y >= leftPaddle.y &&
+        ball.y <= leftPaddle.y + paddleHeight
+      ) {
+        ball.x = leftPaddle.x + paddleWidth;
+        ball.vx *= -1.08;
+      }
+
+      if (
+        ball.x + ballSize >= rightPaddle.x &&
+        ball.y >= rightPaddle.y &&
+        ball.y <= rightPaddle.y + paddleHeight
+      ) {
+        ball.x = rightPaddle.x - ballSize;
+        ball.vx *= -1.08;
+      }
+
+      if (ball.x < 0) {
+        rightPaddle.score += 1;
+        updateScore();
+        resetBall();
+      }
+
+      if (ball.x > canvas.width) {
+        leftPaddle.score += 1;
+        updateScore();
+        resetBall();
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#111827';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(leftPaddle.x, leftPaddle.y, paddleWidth, paddleHeight);
+      ctx.fillRect(rightPaddle.x, rightPaddle.y, paddleWidth, paddleHeight);
+
+      ctx.fillRect(canvas.width / 2 - 2, 0, 4, canvas.height);
+      ctx.beginPath();
+      ctx.arc(ball.x, ball.y, ballSize / 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function loop() {
+      update();
+      draw();
+      requestAnimationFrame(loop);
+    }
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'w' || event.key === 'W') keys.w = true;
+      if (event.key === 's' || event.key === 'S') keys.s = true;
+    });
+
+    document.addEventListener('keyup', (event) => {
+      if (event.key === 'w' || event.key === 'W') keys.w = false;
+      if (event.key === 's' || event.key === 'S') keys.s = false;
+    });
+
+    updateScore();
+    resetBall();
+    requestAnimationFrame(loop);
+  </script>
+</body>
+</html>

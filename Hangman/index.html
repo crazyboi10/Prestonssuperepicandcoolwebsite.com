@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hangman</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #111827, #374151);
+      font-family: Arial, sans-serif;
+      color: #f3f4f6;
+    }
+    .game {
+      width: min(90vw, 760px);
+      background: rgba(17, 24, 39, 0.8);
+      border: 2px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+      padding: 24px;
+    }
+    h1 { text-align: center; margin-top: 0; }
+    .layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .gallows {
+      position: relative;
+      width: 180px;
+      height: 220px;
+      margin: 0 auto;
+      border-bottom: 8px solid #f3f4f6;
+    }
+    .gallows::before {
+      content: "";
+      position: absolute;
+      left: 20px;
+      top: 0;
+      width: 8px;
+      height: 200px;
+      background: #f3f4f6;
+    }
+    .gallows::after {
+      content: "";
+      position: absolute;
+      left: 20px;
+      top: 0;
+      width: 100px;
+      height: 8px;
+      background: #f3f4f6;
+    }
+    .part {
+      position: absolute;
+      display: none;
+      border: 6px solid #f3f4f6;
+    }
+    .part.show { display: block; }
+    .head { width: 52px; height: 52px; border-radius: 50%; left: 88px; top: 26px; }
+    .body { width: 6px; height: 70px; border-radius: 6px; left: 110px; top: 78px; border-width: 5px; }
+    .arm-left, .arm-right { width: 42px; height: 6px; border-radius: 6px; top: 100px; }
+    .arm-left { left: 76px; transform: rotate(35deg); }
+    .arm-right { left: 112px; transform: rotate(-35deg); }
+    .leg-left, .leg-right { width: 42px; height: 6px; border-radius: 6px; top: 156px; }
+    .leg-left { left: 76px; transform: rotate(35deg); }
+    .leg-right { left: 112px; transform: rotate(-35deg); }
+    .word {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      font-size: clamp(28px, 4vw, 44px);
+      margin: 20px 0;
+      letter-spacing: 0.18em;
+    }
+    .letter-slot {
+      display: inline-block;
+      min-width: 26px;
+      text-align: center;
+      border-bottom: 4px solid #f3f4f6;
+      padding-bottom: 6px;
+    }
+    .letters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 16px;
+    }
+    .letter-btn {
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 10px;
+      background: #facc15;
+      color: #111827;
+      font-weight: bold;
+      font-size: 20px;
+      cursor: pointer;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+    .letter-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+    }
+    .letter-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .status {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-top: 18px;
+      min-height: 28px;
+    }
+    .controls {
+      display: flex;
+      justify-content: center;
+      margin-top: 18px;
+    }
+    button.restart {
+      background: #38bdf8;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    @media (max-width: 640px) {
+      .layout { grid-template-columns: 1fr; }
+      .gallows { width: 160px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="game">
+    <h1>Hangman</h1>
+    <div class="layout">
+      <div class="gallows">
+        <div class="part head"></div>
+        <div class="part body"></div>
+        <div class="part arm-left"></div>
+        <div class="part arm-right"></div>
+        <div class="part leg-left"></div>
+        <div class="part leg-right"></div>
+      </div>
+
+      <div>
+        <div id="word" class="word"></div>
+        <div id="status" class="status">Pick a letter!</div>
+        <div id="letters" class="letters"></div>
+        <div class="controls">
+          <button id="restart" class="restart">New Game</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const words = [
+      'PYTHON', 'JAVASCRIPT', 'PROGRAM', 'GAMING', 'COMPUTER', 'WEBSITE', 'ROCKET', 'PLANET', 'HANGMAN', 'ALGORITHM', 'PUZZLE'
+    ];
+
+    const lettersEl = document.getElementById('letters');
+    const wordEl = document.getElementById('word');
+    const statusEl = document.getElementById('status');
+    const restartBtn = document.getElementById('restart');
+    const parts = [...document.querySelectorAll('.part')];
+
+    let word = '';
+    let guessedLetters = [];
+    let wrongCount = 0;
+    let gameOver = false;
+
+    function getRandomWord() {
+      return words[Math.floor(Math.random() * words.length)];
+    }
+
+    function updateHangman() {
+      parts.forEach((part, index) => {
+        part.classList.toggle('show', index < wrongCount);
+      });
+    }
+
+    function renderWord() {
+      const letters = [...word].map(letter => {
+        if (guessedLetters.includes(letter)) {
+          return `<span class="letter-slot">${letter}</span>`;
+        }
+        return `<span class="letter-slot">&nbsp;</span>`;
+      }).join('');
+
+      wordEl.innerHTML = letters;
+    }
+
+    function renderLetters() {
+      lettersEl.innerHTML = '';
+
+      for (let i = 65; i <= 90; i++) {
+        const letter = String.fromCharCode(i);
+        const btn = document.createElement('button');
+        btn.className = 'letter-btn';
+        btn.textContent = letter;
+        btn.disabled = guessedLetters.includes(letter) || gameOver;
+        btn.addEventListener('click', () => makeGuess(letter));
+        lettersEl.appendChild(btn);
+      }
+    }
+
+    function makeGuess(letter) {
+      if (gameOver || guessedLetters.includes(letter)) return;
+
+      guessedLetters.push(letter);
+      renderLetters();
+
+      if (word.includes(letter)) {
+        renderWord();
+
+        if ([...word].every(ch => guessedLetters.includes(ch))) {
+          gameOver = true;
+          statusEl.textContent = `You win! The word was ${word}.`;
+          renderLetters();
+        } else {
+          statusEl.textContent = 'Nice! Keep going.';
+        }
+      } else {
+        wrongCount += 1;
+        updateHangman();
+
+        if (wrongCount >= parts.length) {
+          gameOver = true;
+          statusEl.textContent = `You lost! The word was ${word}.`;
+          renderWord();
+        } else {
+          statusEl.textContent = `Wrong guess! ${parts.length - wrongCount} chances left.`;
+        }
+      }
+    }
+
+    function startGame() {
+      word = getRandomWord();
+      guessedLetters = [];
+      wrongCount = 0;
+      gameOver = false;
+      statusEl.textContent = 'Pick a letter!';
+      updateHangman();
+      renderWord();
+      renderLetters();
+    }
+
+    restartBtn.addEventListener('click', startGame);
+    startGame();
+  </script>
+</body>
+</html>

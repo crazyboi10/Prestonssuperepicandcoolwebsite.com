@@ -9,7 +9,7 @@ h1 {
     color: transparent;
     font-family: "Pacifico", cursive;
     font-size: 4.26vw;
-    margin: 8px 0;
+    margin: 4px 0 6px;
     -webkit-background-clip: text;
 }
 
@@ -17,6 +17,7 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 0;
+    margin-top: -4px;
 }
 
 .links a.bomb {
@@ -27,7 +28,127 @@ h1 {
     text-decoration: none;
 }
 
-.clock { color: #eeeeee; font-family: "Pacifico", cursive; font-size: clamp(18px, 2.4vw, 30px); margin: 0 0 8px; }
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 0 0 10px;
+    flex-wrap: wrap;
+}
+
+.time-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 210px;
+    padding: 14px 18px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.clock-label {
+    margin: 0;
+    color: #eeeeee;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+.clock {
+    color: #eeeeee;
+    font-family: "Pacifico", cursive;
+    font-size: clamp(28px, 3.6vw, 52px);
+    margin: 2px 0 8px;
+    line-height: 1.05;
+}
+
+.meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    color: #eeeeee;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.ad-banner {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    min-width: 260px;
+    max-width: 440px;
+}
+
+.ad-card {
+    width: 100%;
+    padding: 0;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #ffde59, #ff9f1c);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    color: #111111;
+    border: 2px solid rgba(17, 17, 17, 0.2);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+    overflow: hidden;
+}
+
+.ad-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+}
+
+.ad-link {
+    display: block;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+    height: 100%;
+}
+
+.ad-label {
+    display: inline-block;
+    background: rgba(17, 17, 17, 0.12);
+    border-radius: 999px;
+    padding: 4px 8px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.ad-card h3 {
+    margin: 0 0 6px;
+    font-size: clamp(22px, 2.4vw, 28px);
+    font-family: "Pacifico", cursive;
+    color: #111111;
+}
+
+.ad-card p {
+    margin: 0 0 10px;
+    font-size: clamp(14px, 1.6vw, 18px);
+    font-family: Arial, sans-serif;
+    line-height: 1.2;
+    color: #111111;
+}
+
+.ad-button {
+    display: inline-block;
+    background: #111111;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-weight: 700;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
 
 .links a {
     animation: link-in 500ms ease-out var(--delay) both;
