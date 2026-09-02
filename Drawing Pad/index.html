@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawing Pad | Preston's Website</title>
+    <style>
+        :root { --ink:#17202a; --paper:#fff8ed; --accent:#ff6b4a; } * { box-sizing:border-box; } body { margin:0; min-height:100vh; padding:24px; background:linear-gradient(135deg,#fff8ed,#f4bd4f); color:var(--ink); font-family:Arial,sans-serif; } main { width:min(900px,100%); margin:auto; } header { display:flex; justify-content:space-between; } a { color:var(--ink); } h1 { font-size:clamp(46px,10vw,82px); margin:70px 0 8px; line-height:.9; } .intro { margin-bottom:22px; } .tools { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-bottom:14px; } label { display:flex; align-items:center; gap:7px; font-weight:700; } input[type="color"] { width:42px; height:34px; border:0; padding:0; } input[type="range"] { accent-color:var(--accent); } button { border:0; border-radius:6px; background:var(--ink); color:#fff; cursor:pointer; font-weight:700; padding:11px 16px; } #canvas { display:block; width:100%; height:auto; aspect-ratio:16/10; background:#fff; border:3px solid var(--ink); border-radius:8px; cursor:crosshair; touch-action:none; } #clear { background:var(--accent); }
+    </style>
+</head>
+<body><main>
+    <header><a href="../index.html">Back home</a><span>ARCADE / 03</span></header>
+    <h1>Drawing pad</h1><p class="intro">Make something weird. Your drawing stays in this page until you clear it.</p>
+    <div class="tools"><label>Color <input id="color" type="color" value="#ff6b4a"></label><label>Brush <input id="size" type="range" min="2" max="40" value="8"></label><button id="clear" type="button">Clear canvas</button></div>
+    <canvas id="canvas" width="1200" height="750" aria-label="Drawing canvas"></canvas>
+</main>
+<script>
+const canvas = document.getElementById('canvas'); const context = canvas.getContext('2d'); const color = document.getElementById('color'); const size = document.getElementById('size'); let drawing = false;
+context.fillStyle = '#ffffff'; context.fillRect(0, 0, canvas.width, canvas.height); context.lineCap = 'round'; context.lineJoin = 'round';
+function point(event) { const bounds = canvas.getBoundingClientRect(); return { x:(event.clientX - bounds.left) * canvas.width / bounds.width, y:(event.clientY - bounds.top) * canvas.height / bounds.height }; }
+canvas.addEventListener('pointerdown', event => { drawing = true; canvas.setPointerCapture(event.pointerId); const position = point(event); context.beginPath(); context.moveTo(position.x, position.y); }); canvas.addEventListener('pointermove', event => { if (!drawing) return; const position = point(event); context.strokeStyle = color.value; context.lineWidth = size.value; context.lineTo(position.x, position.y); context.stroke(); }); canvas.addEventListener('pointerup', () => drawing = false); canvas.addEventListener('pointercancel', () => drawing = false); document.getElementById('clear').addEventListener('click', () => { context.fillStyle = '#ffffff'; context.fillRect(0, 0, canvas.width, canvas.height); });
+</script></body></html>

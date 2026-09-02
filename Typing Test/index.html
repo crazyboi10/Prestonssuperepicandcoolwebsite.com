@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Test | Preston's Website</title>
+    <style>
+        :root { --ink:#101820; --paper:#eef4ed; --accent:#ff6b4a; --muted:#64736d; }
+        * { box-sizing:border-box; } body { margin:0; min-height:100vh; padding:24px; background:linear-gradient(135deg,#eef4ed,#a8d5ba); color:var(--ink); font-family:Arial,sans-serif; }
+        main { width:min(760px,100%); margin:auto; } header { display:flex; justify-content:space-between; gap:16px; } a { color:var(--ink); } h1 { font-size:clamp(42px,9vw,78px); margin:70px 0 8px; line-height:.9; } .intro { color:var(--muted); }
+        .stats { display:flex; gap:10px; margin:28px 0 14px; } .stat { background:rgba(255,255,255,.65); padding:14px 18px; min-width:100px; } .stat strong { display:block; font-size:25px; } .stat small { color:var(--muted); }
+        #prompt { background:var(--ink); color:#c9d4ce; padding:24px; border-radius:8px; font-size:clamp(20px,3vw,28px); line-height:1.5; } #prompt span { color:#fff; } #prompt .correct { color:#73e2a1; } #prompt .wrong { color:#ff927c; text-decoration:underline; }
+        textarea { display:block; width:100%; min-height:130px; margin-top:14px; border:2px solid var(--ink); border-radius:8px; padding:16px; resize:vertical; font:inherit; font-size:18px; } button { background:var(--accent); color:#fff; border:0; border-radius:6px; cursor:pointer; font-weight:700; padding:13px 18px; margin-top:14px; }
+        #message { min-height:24px; font-weight:700; }
+    </style>
+</head>
+<body><main>
+    <header><a href="../index.html">Back home</a><span>ARCADE / 02</span></header>
+    <h1>Typing test</h1><p class="intro">How fast can you type one tiny paragraph?</p>
+    <div class="stats"><div class="stat"><strong id="time">60</strong><small>seconds</small></div><div class="stat"><strong id="wpm">0</strong><small>words per minute</small></div><div class="stat"><strong id="accuracy">100%</strong><small>accuracy</small></div></div>
+    <div id="prompt" aria-label="Text to type"></div><textarea id="input" placeholder="Click here and start typing..." disabled spellcheck="false"></textarea><button id="start" type="button">Start test</button><p id="message" role="status"></p>
+</main>
+<script>
+const text = 'The best websites feel like a place you want to explore. Try a game, check the weather, and leave something a little cooler than you found it.'; const prompt = document.getElementById('prompt'); const input = document.getElementById('input'); const time = document.getElementById('time'); const wpm = document.getElementById('wpm'); const accuracy = document.getElementById('accuracy'); const message = document.getElementById('message'); let started = false; let seconds = 60; let timer;
+function renderPrompt() { prompt.innerHTML = text.split('').map((character,index) => '<span data-index="' + index + '">' + (character === ' ' ? '&nbsp;' : character) + '</span>').join(''); }
+function update() { const typed = input.value; let correct = 0; [...typed].forEach((character,index) => { const span = prompt.children[index]; if (!span) return; span.className = character === text[index] ? 'correct' : 'wrong'; if (character === text[index]) correct++; }); const elapsed = Math.max(1, 60 - seconds); wpm.textContent = Math.round((typed.trim().split(/\s+/).filter(Boolean).length / elapsed) * 60); accuracy.textContent = (typed.length ? Math.round(correct / typed.length * 100) : 100) + '%'; }
+function finish() { clearInterval(timer); input.disabled = true; started = false; message.textContent = 'Time! Your final score is ' + wpm.textContent + ' WPM.'; }
+function start() { clearInterval(timer); seconds = 60; time.textContent = seconds; input.value = ''; input.disabled = false; input.focus(); started = true; message.textContent = ''; renderPrompt(); timer = setInterval(() => { seconds--; time.textContent = seconds; update(); if (!seconds) finish(); }, 1000); }
+input.addEventListener('input', () => { if (!started) return; update(); if (input.value.length >= text.length) finish(); }); document.getElementById('start').addEventListener('click', start); renderPrompt();
+</script></body></html>

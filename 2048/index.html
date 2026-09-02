@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048 | Preston's Website</title>
+    <style>
+        :root { --ink:#17202a; --paper:#f7f1e3; --accent:#ff6b4a; --tile:#d8cbb5; }
+        * { box-sizing:border-box; }
+        body { margin:0; min-height:100vh; padding:24px; background:linear-gradient(135deg,#17202a,#3c5564); color:var(--paper); font-family:Arial,sans-serif; }
+        main { width:min(520px,100%); margin:auto; }
+        header { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+        a { color:var(--paper); }
+        h1 { margin:24px 0 4px; font-size:clamp(48px,14vw,78px); line-height:.85; }
+        .subtitle { margin:0 0 20px; color:#d8dfdc; }
+        .topline { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+        #status { margin:0; color:#d8dfdc; }
+        button { border:0; border-radius:7px; cursor:pointer; font-weight:700; padding:12px 16px; }
+        #new-game { background:var(--accent); color:#fff; }
+        .board { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; padding:10px; background:#766653; border-radius:10px; aspect-ratio:1; }
+        .tile { display:grid; place-items:center; border-radius:6px; background:var(--tile); color:var(--ink); font-size:clamp(25px,8vw,42px); font-weight:800; }
+        .tile[data-value="0"] { color:transparent; }
+        .tile[data-value="2"] { background:#eee4d2; } .tile[data-value="4"] { background:#eee0bd; }
+        .tile[data-value="8"],.tile[data-value="16"],.tile[data-value="32"] { background:var(--accent); color:#fff; }
+        .tile[data-value="64"],.tile[data-value="128"],.tile[data-value="256"],.tile[data-value="512"],.tile[data-value="1024"],.tile[data-value="2048"] { background:#f2bd45; color:#fff; }
+        .help { color:#d8dfdc; line-height:1.5; }
+    </style>
+</head>
+<body>
+    <main>
+        <header><a href="../index.html">Back home</a><span>ARCADE / 01</span></header>
+        <h1>2048</h1>
+        <p class="subtitle">Combine matching numbers and reach 2048.</p>
+        <div class="topline"><p id="status" aria-live="polite">Use your arrow keys</p><button id="new-game" type="button">New game</button></div>
+        <div class="board" id="board" aria-label="2048 board"></div>
+        <p class="help">Arrow keys or swipe the board. Every move adds a new tile.</p>
+    </main>
+    <script>
+        const boardElement = document.getElementById('board');
+        const statusElement = document.getElementById('status');
+        let tiles;
+        function startGame() { tiles = Array(16).fill(0); addTile(); addTile(); render(); statusElement.textContent = 'Use your arrow keys'; }
+        function addTile() { const empty = tiles.map((value,index) => value ? null : index).filter(index => index !== null); if (empty.length) tiles[empty[Math.floor(Math.random() * empty.length)]] = Math.random() < .9 ? 2 : 4; }
+        function render() { boardElement.innerHTML = tiles.map(value => '<div class="tile" data-value="' + value + '">' + (value || '') + '</div>').join(''); }
+        function slide(line) { const values = line.filter(Boolean); for (let index = 0; index < values.length - 1; index++) { if (values[index] === values[index + 1]) { values[index] *= 2; values.splice(index + 1, 1); } } while (values.length < 4) values.push(0); return values; }
+        function move(direction) { const before = tiles.join(','); let next = Array(16).fill(0); for (let line = 0; line < 4; line++) { let values = []; for (let spot = 0; spot < 4; spot++) { const row = direction === 'up' || direction === 'down' ? spot * 4 + line : line * 4 + spot; values.push(tiles[row]); } if (direction === 'right' || direction === 'down') values.reverse(); values = slide(values); if (direction === 'right' || direction === 'down') values.reverse(); for (let spot = 0; spot < 4; spot++) { const row = direction === 'up' || direction === 'down' ? spot * 4 + line : line * 4 + spot; next[row] = values[spot]; } } if (before === next.join(',')) { statusElement.textContent = 'That move is blocked'; return; } tiles = next; addTile(); render(); if (tiles.includes(2048)) statusElement.textContent = 'You reached 2048!'; }
+        document.addEventListener('keydown', event => { const directions = { ArrowUp:'up', ArrowDown:'down', ArrowLeft:'left', ArrowRight:'right' }; if (directions[event.key]) { event.preventDefault(); move(directions[event.key]); } });
+        document.getElementById('new-game').addEventListener('click', startGame); startGame();
+    </script>
+</body>
+</html>

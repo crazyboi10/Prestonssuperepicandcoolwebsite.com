@@ -44,6 +44,27 @@ const ads = [
         button: 'Play Now',
         link: 'Pong/index.html',
         color: 'linear-gradient(135deg, #86efac, #16a34a)'
+    },
+    {
+        title: '2048',
+        text: 'Slide, combine, and chase the legendary 2048 tile.',
+        button: 'Play Now',
+        link: '2048/index.html',
+        color: 'linear-gradient(135deg, #f8d477, #ff6b4a)'
+    },
+    {
+        title: 'Typing Test',
+        text: 'Race the clock and discover your words per minute.',
+        button: 'Try It',
+        link: 'Typing%20Test/index.html',
+        color: 'linear-gradient(135deg, #a8d5ba, #3d9970)'
+    },
+    {
+        title: 'Drawing Pad',
+        text: 'Make something strange with a color and a brush.',
+        button: 'Draw Now',
+        link: 'Drawing%20Pad/index.html',
+        color: 'linear-gradient(135deg, #fff0b3, #f4bd4f)'
     }
 ];
 
