@@ -45,6 +45,22 @@
         function slide(line) { const values = line.filter(Boolean); for (let index = 0; index < values.length - 1; index++) { if (values[index] === values[index + 1]) { values[index] *= 2; values.splice(index + 1, 1); } } while (values.length < 4) values.push(0); return values; }
         function move(direction) { const before = tiles.join(','); let next = Array(16).fill(0); for (let line = 0; line < 4; line++) { let values = []; for (let spot = 0; spot < 4; spot++) { const row = direction === 'up' || direction === 'down' ? spot * 4 + line : line * 4 + spot; values.push(tiles[row]); } if (direction === 'right' || direction === 'down') values.reverse(); values = slide(values); if (direction === 'right' || direction === 'down') values.reverse(); for (let spot = 0; spot < 4; spot++) { const row = direction === 'up' || direction === 'down' ? spot * 4 + line : line * 4 + spot; next[row] = values[spot]; } } if (before === next.join(',')) { statusElement.textContent = 'That move is blocked'; return; } tiles = next; addTile(); render(); if (tiles.includes(2048)) statusElement.textContent = 'You reached 2048!'; }
         document.addEventListener('keydown', event => { const directions = { ArrowUp:'up', ArrowDown:'down', ArrowLeft:'left', ArrowRight:'right' }; if (directions[event.key]) { event.preventDefault(); move(directions[event.key]); } });
+        let swipeStart;
+        boardElement.addEventListener('pointerdown', event => {
+            swipeStart = { x: event.clientX, y: event.clientY };
+        });
+        boardElement.addEventListener('pointerup', event => {
+            if (!swipeStart) return;
+            const distanceX = event.clientX - swipeStart.x;
+            const distanceY = event.clientY - swipeStart.y;
+            swipeStart = null;
+
+            if (Math.max(Math.abs(distanceX), Math.abs(distanceY)) < 30) return;
+            move(Math.abs(distanceX) > Math.abs(distanceY)
+                ? (distanceX > 0 ? 'right' : 'left')
+                : (distanceY > 0 ? 'down' : 'up'));
+        });
+        boardElement.addEventListener('pointercancel', () => { swipeStart = null; });
         document.getElementById('new-game').addEventListener('click', startGame); startGame();
     </script>
 </body>
