@@ -7,7 +7,7 @@
     <style>
         :root { --ink:#17202a; --paper:#f7f1e3; --accent:#ff6b4a; --tile:#d8cbb5; }
         * { box-sizing:border-box; }
-        body { margin:0; min-height:100vh; padding:24px; background:linear-gradient(135deg,#17202a,#3c5564); color:var(--paper); font-family:Arial,sans-serif; }
+        body { margin:0; min-height:100vh; overscroll-behavior:none; padding:24px; background:linear-gradient(135deg,#17202a,#3c5564); color:var(--paper); font-family:Arial,sans-serif; }
         main { width:min(520px,100%); margin:auto; }
         header { display:flex; align-items:center; justify-content:space-between; gap:16px; }
         a { color:var(--paper); }
@@ -17,7 +17,7 @@
         #status { margin:0; color:#d8dfdc; }
         button { border:0; border-radius:7px; cursor:pointer; font-weight:700; padding:12px 16px; }
         #new-game { background:var(--accent); color:#fff; }
-        .board { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; padding:10px; background:#766653; border-radius:10px; aspect-ratio:1; }
+        .board { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; padding:10px; background:#766653; border-radius:10px; aspect-ratio:1; touch-action:none; }
         .tile { display:grid; place-items:center; border-radius:6px; background:var(--tile); color:var(--ink); font-size:clamp(25px,8vw,42px); font-weight:800; }
         .tile[data-value="0"] { color:transparent; }
         .tile[data-value="2"] { background:#eee4d2; } .tile[data-value="4"] { background:#eee0bd; }
@@ -61,6 +61,9 @@
             const touch = event.changedTouches[0];
             swipeStart = { x: touch.clientX, y: touch.clientY };
         }, { passive: true });
+        boardElement.addEventListener('touchmove', event => {
+            event.preventDefault();
+        }, { passive: false });
         boardElement.addEventListener('touchend', event => {
             handleSwipe(event.changedTouches[0]);
         }, { passive: true });
