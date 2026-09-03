@@ -37,6 +37,12 @@ body {
   margin-bottom: 24px;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .eyebrow {
   margin: 0 0 8px;
   color: var(--primary-strong);
@@ -51,12 +57,21 @@ h1 {
   font-size: clamp(2.1rem, 4vw, 3.1rem);
 }
 
+.exit-btn,
 .load-btn {
   border: 0;
   border-radius: 999px;
   padding: 12px 20px;
   font-weight: 700;
   cursor: pointer;
+}
+
+.exit-btn {
+  background: rgba(18, 38, 53, 0.08);
+  color: var(--text);
+}
+
+.load-btn {
   color: white;
   background: linear-gradient(135deg, var(--primary), var(--primary-strong));
   box-shadow: 0 10px 22px rgba(13, 109, 203, 0.25);
