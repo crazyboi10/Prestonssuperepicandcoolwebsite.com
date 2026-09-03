@@ -55,3 +55,7 @@ Configure the deployed `create-checkout` function's Stripe Checkout Session with
 The shop stores the generated order number before sending the customer to Stripe. The success page reads it and displays it only after Stripe returns the customer to the site. Remove the stored value on cancellation if your checkout function also has a cancel URL.
 
 If the deployed checkout function currently returns to `/Shop/?checkout=success`, upload the latest `script-supabase.js` as well. It handles that live return URL, sends the completed order to Telegram, and then shows the order number.
+
+## Reduce stock after payment
+
+The deployed `create-checkout` function must also reduce `products.stock` only after Stripe confirms the Checkout Session as paid. Do this in the Stripe webhook or verified success handler, using a server-side Supabase key or a protected database function. Do not update stock from browser JavaScript, because customers could change the request and create incorrect inventory counts.

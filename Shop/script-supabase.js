@@ -909,6 +909,10 @@ async function sendCompletedOrderNotification() {
     if (query.get('checkout') !== 'success' || !pendingOrder) return;
 
     try {
+        cart = [];
+        renderCart();
+        await saveCart();
+
         const { error } = await supabase.functions.invoke('send-order-telegram', {
             body: {
                 ...pendingOrder,
