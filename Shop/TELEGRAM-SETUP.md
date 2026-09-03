@@ -53,3 +53,5 @@ Configure the deployed `create-checkout` function's Stripe Checkout Session with
 `https://YOUR-SITE-DOMAIN/Shop/success.html?session_id={CHECKOUT_SESSION_ID}`
 
 The shop stores the generated order number before sending the customer to Stripe. The success page reads it and displays it only after Stripe returns the customer to the site. Remove the stored value on cancellation if your checkout function also has a cancel URL.
+
+If the deployed checkout function currently returns to `/Shop/?checkout=success`, upload the latest `script-supabase.js` as well. It handles that live return URL, sends the completed order to Telegram, and then shows the order number.

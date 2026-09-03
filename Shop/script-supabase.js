@@ -902,5 +902,31 @@ document
         event.target.reset();
     });
 
+async function sendCompletedOrderNotification() {
+    const query = new URLSearchParams(window.location.search);
+    const pendingOrder = JSON.parse(localStorage.getItem('pendingOrder') || 'null');
+
+    if (query.get('checkout') !== 'success' || !pendingOrder) return;
+
+    try {
+        const { error } = await supabase.functions.invoke('send-order-telegram', {
+            body: {
+                ...pendingOrder,
+                isTestOrder: false
+            }
+        });
+
+        if (error) throw error;
+
+        localStorage.removeItem('pendingOrder');
+        alert(`Payment complete. Your order number is ${pendingOrder.orderNumber}.`);
+        window.history.replaceState({}, document.title, window.location.pathname);
+    } catch (error) {
+        console.error('Paid order notification error:', error);
+        alert(`Payment complete, but the Telegram notification failed. Your order number is ${pendingOrder.orderNumber}.`);
+    }
+}
+
 await loadProducts();
 await loadSession();
+await sendCompletedOrderNotification();
