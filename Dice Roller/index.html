@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dice Roller</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="dice-card">
+        <p class="eyebrow">Game tool</p>
+        <h1>Dice Roller</h1>
+
+        <div class="controls">
+          <label for="diceCount">Dice count</label>
+          <select id="diceCount">
+            <option value="1">1 die</option>
+            <option value="2">2 dice</option>
+            <option value="3">3 dice</option>
+            <option value="4">4 dice</option>
+          </select>
+
+          <label for="sides">Sides</label>
+          <select id="sides">
+            <option value="4">d4</option>
+            <option value="6" selected>d6</option>
+            <option value="8">d8</option>
+            <option value="10">d10</option>
+            <option value="12">d12</option>
+            <option value="20">d20</option>
+            <option value="100">d100</option>
+          </select>
+        </div>
+
+        <button id="rollBtn" class="roll-btn">Roll Dice</button>
+
+        <div class="result-panel">
+          <div id="diceDisplay" class="dice-display" aria-live="polite"></div>
+          <div class="total-box">
+            <span>Total</span>
+            <strong id="totalValue">0</strong>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

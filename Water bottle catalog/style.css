@@ -1,0 +1,144 @@
+:root {
+  --bg: #eaf7ff;
+  --bg-soft: #d9f1ff;
+  --card: #ffffff;
+  --text: #122635;
+  --muted: #557086;
+  --primary: #1d9bf0;
+  --primary-strong: #0b6dcb;
+  --secondary: #dff7ff;
+  --border: rgba(18, 38, 53, 0.08);
+  --shadow: rgba(14, 36, 52, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--bg), var(--bg-soft));
+  color: var(--text);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.page-shell {
+  width: min(92vw, 1100px);
+  margin: 0 auto;
+  padding: 32px 0 48px;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--primary-strong);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.1rem, 4vw, 3.1rem);
+}
+
+.load-btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 20px;
+  font-weight: 700;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+  box-shadow: 0 10px 22px rgba(13, 109, 203, 0.25);
+}
+
+.catalog {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 16px 26px var(--shadow);
+}
+
+.product-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  background: #dbeafe;
+}
+
+.product-body {
+  padding: 16px 18px 18px;
+}
+
+.product-name {
+  margin: 0 0 8px;
+  font-size: 1.3rem;
+}
+
+.product-brand {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.product-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.product-price {
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.product-color {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--secondary);
+  color: var(--primary-strong);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.product-description {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.loading {
+  color: var(--muted);
+  text-align: center;
+  padding: 24px;
+  border: 1px dashed rgba(18, 38, 53, 0.18);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 600px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

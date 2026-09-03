@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Number Generator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="generator-card">
+        <p class="eyebrow">Utility</p>
+        <h1>Random Number Generator</h1>
+
+        <div class="controls">
+          <div class="field">
+            <label for="minValue">Minimum</label>
+            <input id="minValue" type="number" value="1" />
+          </div>
+
+          <div class="field">
+            <label for="maxValue">Maximum</label>
+            <input id="maxValue" type="number" value="100" />
+          </div>
+
+          <div class="field full-width">
+            <label for="countValue">How many numbers?</label>
+            <input id="countValue" type="number" min="1" max="10" value="1" />
+          </div>
+        </div>
+
+        <button id="generateBtn" class="generate-btn">Generate</button>
+
+        <div class="results-panel">
+          <span class="results-label">Result</span>
+          <div id="resultDisplay" class="result-display" aria-live="polite">42</div>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

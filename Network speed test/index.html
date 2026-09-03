@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Network Speed Test</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="speed-card">
+        <p class="eyebrow">Connection check</p>
+        <h1>Network Speed Test</h1>
+
+        <div class="status-row">
+          <span class="status-dot"></span>
+          <span id="statusText">Ready to test</span>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-box">
+            <span class="metric-label">Ping</span>
+            <strong id="pingValue">--</strong>
+            <small>ms</small>
+          </div>
+
+          <div class="metric-box">
+            <span class="metric-label">Download</span>
+            <strong id="downloadValue">--</strong>
+            <small>Mbps</small>
+          </div>
+
+          <div class="metric-box">
+            <span class="metric-label">Quality</span>
+            <strong id="qualityValue">--</strong>
+            <small>rating</small>
+          </div>
+        </div>
+
+        <button id="startBtn" class="primary-btn">Start Test</button>
+
+        <div class="progress-track" aria-label="speed test progress">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+
+        <p id="resultText" class="result-text">
+          Measure your current network performance in a few seconds.
+        </p>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
