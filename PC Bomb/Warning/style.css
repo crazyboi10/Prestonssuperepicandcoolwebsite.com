@@ -1,5 +1,5 @@
 body {
-    background: linear-gradient(to right, #ff0000, #0019FF, #ff0000);
+    background: linear-gradient(to right, #ff0000, #0019FF);
 }
 a {
     font-size:6vw;
@@ -7,7 +7,7 @@ a {
     text-decoration:none;
 }
 h1 {
-    font-size:15vw;
+    font-size:12vw;
     margin: 0vw auto;
 }
 p {
