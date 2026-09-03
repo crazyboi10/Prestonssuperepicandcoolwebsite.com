@@ -1,7 +1,15 @@
 body {
-    background: linear-gradient(to bottom, #ff0000, #0019FF, #ff0000);
+    background: linear-gradient(to right, #ff0000, #0019FF, #ff0000);
 }
 a {
-    font-size:7vw;
+    font-size:6vw;
     margin: 0vw auto;
+    text-decoration:none;
+}
+h1 {
+    font-size:15vw;
+    margin: 0vw auto;
+}
+p {
+    font-size:8vw;
 }
