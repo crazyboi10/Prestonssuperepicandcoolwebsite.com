@@ -730,8 +730,18 @@ async function startStripeCheckout(event) {
 
     const details = getCheckoutDetails();
     const orderNumber = createOrderNumber();
-
-    localStorage.setItem('pendingOrderNumber', orderNumber);
+    const orderItems = cart.map(item => {
+        const product = products.find(entry => entry.id === item.id);
+        return {
+            name: product?.name || 'Unknown product',
+            price: product?.price || 0,
+            quantity: item.quantity
+        };
+    });
+    const total = orderItems.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+    );
 
     try {
         const { data, error } =
@@ -803,6 +813,16 @@ async function startStripeCheckout(event) {
 
             return;
         }
+
+        localStorage.setItem('pendingOrder', JSON.stringify({
+            orderNumber,
+            customerName: details.customerName,
+            customerEmail: details.customerEmail,
+            address: details.address,
+            notes: details.notes,
+            items: orderItems,
+            total
+        }));
 
         window.location.href =
             data.url;

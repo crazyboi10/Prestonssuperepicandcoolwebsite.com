@@ -18,15 +18,52 @@
           <strong id="orderNumber">Loading...</strong>
         </div>
 
+        <p id="telegramStatus" class="confirmation-copy">Sending your order confirmation...</p>
         <p class="confirmation-copy">Keep this number for your records and include it if you contact us about your order.</p>
         <a class="primary-button" href="index.html">Back to shop</a>
       </section>
     </main>
 
     <script>
-      const orderNumber = localStorage.getItem('pendingOrderNumber');
-      document.querySelector('#orderNumber').textContent = orderNumber || 'Unavailable';
-      localStorage.removeItem('pendingOrderNumber');
+      const supabaseUrl = 'https://gqcvoqemwsaptfcztani.supabase.co';
+      const supabaseKey = 'sb_publishable_FOdYR9QBjHAQAhh52WuM6A_N4mWCfUJ';
+      const sessionId = new URLSearchParams(window.location.search).get('session_id');
+      const pendingOrder = JSON.parse(localStorage.getItem('pendingOrder') || 'null');
+      const status = document.querySelector('#telegramStatus');
+
+      document.querySelector('#orderNumber').textContent = pendingOrder?.orderNumber || 'Unavailable';
+
+      async function sendOrderConfirmation() {
+        if (!sessionId || !pendingOrder) {
+          status.textContent = 'Your payment was completed, but the order details could not be recovered. Please contact the shop.';
+          return;
+        }
+
+        try {
+          const response = await fetch(`${supabaseUrl}/functions/v1/send-order-telegram`, {
+            method: 'POST',
+            headers: {
+              apikey: supabaseKey,
+              Authorization: `Bearer ${supabaseKey}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ ...pendingOrder, isTestOrder: false })
+          });
+          const result = await response.json();
+
+          if (!response.ok) {
+            throw new Error(result.error || 'Telegram confirmation failed');
+          }
+
+          status.textContent = 'Your order confirmation was sent successfully.';
+          localStorage.removeItem('pendingOrder');
+        } catch (error) {
+          console.error(error);
+          status.textContent = 'Your payment succeeded, but the shop notification could not be sent. Please contact the shop with your order number.';
+        }
+      }
+
+      sendOrderConfirmation();
     </script>
   </body>
 </html>
