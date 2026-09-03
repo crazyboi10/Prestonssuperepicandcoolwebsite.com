@@ -19,9 +19,13 @@
             </section>
             <section class="login-panel" aria-labelledby="login-title">
                 <div class="panel-top"><span class="status-dot"></span><span>WEBSITE ACCOUNT</span></div>
-                <h2 id="login-title">Welcome back</h2>
-                <p class="panel-copy">Sign in to your Preston's Website account.</p>
-                <form id="login-form">
+                <h2 id="login-title">Website account</h2>
+                <p class="panel-copy">Would you like to sign in or sign up?</p>
+                <div class="account-choice" role="group" aria-label="Choose account action">
+                    <button class="choice-button active" type="button" data-form="login-form" aria-pressed="true">Sign in</button>
+                    <button class="choice-button" type="button" data-form="signup-form" aria-pressed="false">Sign up</button>
+                </div>
+                <form id="login-form" class="account-form">
                     <label for="email">Email address</label>
                     <input id="email" type="email" autocomplete="email" required>
                     <label for="password">Password</label>
@@ -29,11 +33,12 @@
                     <button class="submit-button" type="submit">Sign in</button>
                 </form>
                 <p id="account-message" class="note" role="status"></p>
-                <div class="divider"><span>New here?</span></div>
-                <form id="signup-form">
-                    <label for="signup-password">Create a password</label>
+                <form id="signup-form" class="account-form" hidden>
+                    <label for="signup-email">Email address</label>
+                    <input id="signup-email" type="email" autocomplete="email">
+                    <label for="signup-password">Password</label>
                     <input id="signup-password" type="password" minlength="6" autocomplete="new-password" required>
-                    <button class="outline-button" type="submit">Create website account</button>
+                    <button class="submit-button" type="submit">Sign up</button>
                 </form>
                 <a class="guest-button" href="../index.html">Continue as guest <span aria-hidden="true">&rarr;</span></a>
                 <p class="fine-print">Your website sign-in stays separate from Weather and Shop.</p>
@@ -51,6 +56,20 @@
             const loginForm = document.querySelector('#login-form');
             const signupForm = document.querySelector('#signup-form');
             const message = document.querySelector('#account-message');
+            const choiceButtons = document.querySelectorAll('.choice-button');
+
+            choiceButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    choiceButtons.forEach(choice => {
+                        const selected = choice === button;
+                        choice.classList.toggle('active', selected);
+                        choice.setAttribute('aria-pressed', selected);
+                    });
+                    loginForm.hidden = button.dataset.form !== 'login-form';
+                    signupForm.hidden = button.dataset.form !== 'signup-form';
+                    showMessage('');
+                });
+            });
 
             function showMessage(text, isError = false) {
                 message.textContent = text;
@@ -73,7 +92,7 @@
 
             signupForm.addEventListener('submit', async event => {
                 event.preventDefault();
-                const email = document.querySelector('#email').value;
+                const email = document.querySelector('#signup-email').value;
                 const password = document.querySelector('#signup-password').value;
                 if (!email) {
                     showMessage('Enter your email address first.', true);
