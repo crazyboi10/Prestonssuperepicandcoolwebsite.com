@@ -18,19 +18,71 @@
                 <p class="welcome-copy">Games, experiments, and little surprises. Pick up where you left off or jump straight in.</p>
             </section>
             <section class="login-panel" aria-labelledby="login-title">
-                <div class="panel-top"><span class="status-dot"></span><span>ARCADE ACCESS</span></div>
+                <div class="panel-top"><span class="status-dot"></span><span>WEBSITE ACCOUNT</span></div>
                 <h2 id="login-title">Welcome back</h2>
-                <p class="panel-copy">Sign in to keep your place across the site.</p>
-                <button class="google-button" type="button" aria-describedby="google-note" disabled>
-                    <span class="google-mark" aria-hidden="true">G</span>
-                    Continue with Google
-                </button>
-                <p id="google-note" class="note">Google sign-in will be connected soon.</p>
-                <div class="divider"><span>or</span></div>
+                <p class="panel-copy">Sign in to your Preston's Website account.</p>
+                <form id="login-form">
+                    <label for="email">Email address</label>
+                    <input id="email" type="email" autocomplete="email" required>
+                    <label for="password">Password</label>
+                    <input id="password" type="password" autocomplete="current-password" required>
+                    <button class="submit-button" type="submit">Sign in</button>
+                </form>
+                <p id="account-message" class="note" role="status"></p>
+                <div class="divider"><span>New here?</span></div>
+                <form id="signup-form">
+                    <label for="signup-password">Create a password</label>
+                    <input id="signup-password" type="password" minlength="6" autocomplete="new-password" required>
+                    <button class="outline-button" type="submit">Create website account</button>
+                </form>
                 <a class="guest-button" href="../index.html">Continue as guest <span aria-hidden="true">&rarr;</span></a>
-                <p class="fine-print">No account needed. You can explore everything as a guest.</p>
+                <p class="fine-print">Your website sign-in stays separate from Weather and Shop.</p>
                 <a class="back-link" href="../index.html">&larr; Back to home</a>
             </section>
         </main>
+        <script type="module">
+            import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+            const supabase = createClient(
+                'https://gqcvoqemwsaptfcztani.supabase.co',
+                'sb_publishable_FOdYR9QBjHAQAhh52WuM6A_N4mWCfUJ',
+                { auth: { storageKey: 'preston-website-auth' } }
+            );
+            const loginForm = document.querySelector('#login-form');
+            const signupForm = document.querySelector('#signup-form');
+            const message = document.querySelector('#account-message');
+
+            function showMessage(text, isError = false) {
+                message.textContent = text;
+                message.classList.toggle('error', isError);
+            }
+
+            loginForm.addEventListener('submit', async event => {
+                event.preventDefault();
+                const { error } = await supabase.auth.signInWithPassword({
+                    email: document.querySelector('#email').value,
+                    password: document.querySelector('#password').value
+                });
+                if (error) {
+                    showMessage(error.message, true);
+                    return;
+                }
+                showMessage('Signed in. Welcome back.');
+                setTimeout(() => window.location.href = '../index.html', 500);
+            });
+
+            signupForm.addEventListener('submit', async event => {
+                event.preventDefault();
+                const email = document.querySelector('#email').value;
+                const password = document.querySelector('#signup-password').value;
+                if (!email) {
+                    showMessage('Enter your email address first.', true);
+                    document.querySelector('#email').focus();
+                    return;
+                }
+                const { error } = await supabase.auth.signUp({ email, password });
+                showMessage(error?.message || 'Check your email to confirm your account.');
+            });
+        </script>
     </body>
 </html>

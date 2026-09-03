@@ -1,6 +1,37 @@
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
 const links = document.querySelectorAll('.links a');
 const clock = document.querySelector('#clock');
 const adContent = document.getElementById('adContent');
+const accountStatus = document.querySelector('#account-status');
+const accountLink = document.querySelector('#account-link');
+const accountSignout = document.querySelector('#account-signout');
+
+const supabase = createClient(
+    'https://gqcvoqemwsaptfcztani.supabase.co',
+    'sb_publishable_FOdYR9QBjHAQAhh52WuM6A_N4mWCfUJ',
+    { auth: { storageKey: 'preston-website-auth' } }
+);
+
+function renderAccount(user) {
+    const signedIn = Boolean(user);
+    accountStatus.textContent = signedIn
+        ? `Signed in as ${user.email}`
+        : 'Website account';
+    accountLink.hidden = signedIn;
+    accountSignout.hidden = !signedIn;
+}
+
+async function loadWebsiteAccount() {
+    const { data: { session } } = await supabase.auth.getSession();
+    renderAccount(session?.user || null);
+    supabase.auth.onAuthStateChange((_event, nextSession) => {
+        renderAccount(nextSession?.user || null);
+    });
+}
+
+accountSignout.addEventListener('click', () => supabase.auth.signOut());
+loadWebsiteAccount();
 
 const ads = [
     {
