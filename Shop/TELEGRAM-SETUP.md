@@ -59,3 +59,13 @@ If the deployed checkout function currently returns to `/Shop/?checkout=success`
 ## Reduce stock after payment
 
 The deployed `create-checkout` function must also reduce `products.stock` only after Stripe confirms the Checkout Session as paid. Do this in the Stripe webhook or verified success handler, using a server-side Supabase key or a protected database function. Do not update stock from browser JavaScript, because customers could change the request and create incorrect inventory counts.
+
+The checkout request already contains the exact inventory lines:
+
+```json
+{
+  "items": [{ "id": 123, "quantity": 1 }]
+}
+```
+
+After Stripe confirms payment, the deployed function should update each matching product with `stock = stock - quantity`, reject the order if any product has insufficient stock, and make the update idempotent so refreshing the success page cannot subtract stock twice. Then it should call `send-order-telegram` with the saved customer details and order number.
