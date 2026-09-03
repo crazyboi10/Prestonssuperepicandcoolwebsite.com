@@ -2,81 +2,24 @@ const links = document.querySelectorAll('.links a');
 const clock = document.querySelector('#clock');
 const adContent = document.getElementById('adContent');
 
-const ads = [
-    {
-        title: '3D Prints',
-        text: 'Custom designs for your desk, home, and gifts.',
-        button: 'Shop Now',
-        link: 'Shop/index.html',
-        color: 'linear-gradient(135deg, #ffde59, #ff9f1c)'
-    },
-    {
-        title: 'Weather',
-        text: 'Check today’s conditions before heading out.',
-        button: 'View Weather',
-        link: 'Weather/index.html',
-        color: 'linear-gradient(135deg, #7dd3fc, #38bdf8)'
-    },
-    {
-        title: 'Hangman',
-        text: 'Guess the word before the hangman is complete.',
-        button: 'Play Now',
-        link: 'Hangman/index.html',
-        color: 'linear-gradient(135deg, #c4b5fd, #8b5cf6)'
-    },
-    {
-        title: 'Connect 4',
-        text: 'Drop discs and connect four in a row.',
-        button: 'Play Now',
-        link: 'Connect4/index.html',
-        color: 'linear-gradient(135deg, #7dd3fc, #2563eb)'
-    },
-    {
-        title: 'Rock Paper Scissors',
-        text: 'Challenge the computer or a friend to a quick showdown.',
-        button: 'Play Now',
-        link: 'RPS/index.html',
-        color: 'linear-gradient(135deg, #fcd34d, #f59e0b)'
-    },
-    {
-        title: 'Pong',
-        text: 'Jump into a retro arcade match against AI or a friend.',
-        button: 'Play Now',
-        link: 'Pong/index.html',
-        color: 'linear-gradient(135deg, #86efac, #16a34a)'
-    },
-    {
-        title: '2048',
-        text: 'Slide, combine, and chase the legendary 2048 tile.',
-        button: 'Play Now',
-        link: '2048/index.html',
-        color: 'linear-gradient(135deg, #f8d477, #ff6b4a)'
-    },
-    {
-        title: 'Typing Test',
-        text: 'Race the clock and discover your words per minute.',
-        button: 'Try It',
-        link: 'Typing%20Test/index.html',
-        color: 'linear-gradient(135deg, #a8d5ba, #3d9970)'
-    },
-    {
-        title: 'Drawing Pad',
-        text: 'Make something strange with a color and a brush.',
-        button: 'Draw Now',
-        link: 'Drawing%20Pad/index.html',
-        color: 'linear-gradient(135deg, #fff0b3, #f4bd4f)'
-    }
+const adColors = [
+    'linear-gradient(135deg, #ffde59, #ff9f1c)',
+    'linear-gradient(135deg, #7dd3fc, #38bdf8)',
+    'linear-gradient(135deg, #c4b5fd, #8b5cf6)',
+    'linear-gradient(135deg, #86efac, #16a34a)',
+    'linear-gradient(135deg, #f8d477, #ff6b4a)',
+    'linear-gradient(135deg, #a8d5ba, #3d9970)'
 ];
 
+let ads = [];
 let adIndex = 0;
 
 function renderAd() {
-    const ad = ads[adIndex];
-
-    if (!adContent) {
+    if (!adContent || !ads.length) {
         return;
     }
 
+    const ad = ads[adIndex];
     adContent.style.background = ad.color;
     adContent.innerHTML = `
         <a class="ad-link" href="${ad.link}">
@@ -91,33 +34,29 @@ function renderAd() {
 }
 
 function fixLocalFileLinks() {
-    if (window.location.protocol !== 'file:') {
-        return;
-    }
-
-    const localHrefMap = {
-        '../Mom/index.html': 'Mom/index.html',
-        '../PC Bomb/index.html': 'PC%20Bomb/index.html',
-        '../Calculator/index.html': 'Calculator/index.html',
-        '../Cat/index.html': 'Cat/index.html',
-        '../Frog/index.html': 'Frog/index.html',
-        '../Google Snake/index.html': 'Google%20Snake/index.html',
-        '../Minesweeper/index.html': 'Minesweeper/index.html',
-        '../Tic Tac Toe/index.html': 'Tic%20Tac%20Toe/index.html',
-        '../Login/index.html': 'Login/index.html'
-    };
-
     links.forEach((link) => {
         const originalHref = link.getAttribute('href');
-        const mappedHref = localHrefMap[originalHref];
 
-        if (mappedHref) {
-            link.setAttribute('href', mappedHref);
+        if (originalHref?.startsWith('../') && originalHref.toLowerCase().includes('index.html')) {
+            link.setAttribute('href', originalHref.slice(3).replaceAll(' ', '%20'));
         }
     });
 }
 
 fixLocalFileLinks();
+
+ads = Array.from(links)
+    .filter((link) => {
+        const href = link.getAttribute('href') || '';
+        return href.toLowerCase().includes('index.html') && !href.startsWith('http');
+    })
+    .map((link, index) => ({
+        title: link.textContent.trim(),
+        text: 'Explore this page from Preston\'s website.',
+        button: 'Open Page',
+        link: link.getAttribute('href'),
+        color: adColors[index % adColors.length]
+    }));
 
 links.forEach((link, index) => {
     link.style.setProperty('--delay', `${index * 70}ms`);
