@@ -24,6 +24,12 @@
 
 The function source is in `supabase/functions/send-order-telegram/index.ts`, which is the folder layout required by the Supabase CLI. Redeploy it after changing the Telegram message fields.
 
+If the website reports `Failed to send a request to the Edge Function`, verify that this URL no longer returns `404 NotFound`:
+
+`https://gqcvoqemwsaptfcztani.supabase.co/functions/v1/send-order-telegram`
+
+The function must be deployed to the same project shown in that URL. Deploying it to another Supabase project, or deploying only the old `telegram-function/index.ts` folder, will leave the website unable to reach it.
+
 After deployment, customers can place an order from the shop and the message will arrive in your Telegram chat. The website keeps the email fallback if Telegram is temporarily unavailable.
 
 ## Order details contract
