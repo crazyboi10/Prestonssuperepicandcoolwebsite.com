@@ -37,32 +37,6 @@ h1 {
     flex-wrap: wrap;
 }
 
-.site-account {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 14px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 10px;
-    color: #eeeeee;
-    font: 13px Arial, sans-serif;
-}
-
-.site-account a,
-.site-account button {
-    border: 0;
-    border-bottom: 1px solid currentColor;
-    padding: 0 0 2px;
-    color: #d8ff4f;
-    background: transparent;
-    font: inherit;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.site-account a:hover,
-.site-account button:hover { color: #ffffff; }
-
 [hidden] { display: none !important; }
 
 .time-panel {
