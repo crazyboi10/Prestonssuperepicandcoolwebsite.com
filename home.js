@@ -43,6 +43,35 @@ function fixLocalFileLinks() {
     });
 }
 
+function createAdDescription(title, link) {
+    const pageName = title.toLowerCase();
+    const pagePath = link.toLowerCase();
+
+    if (pageName.includes('joke')) {
+        return `Get a fresh ${pageName.replace('random ', '')} from the internet.`;
+    }
+    if (pageName.includes('fact')) {
+        return `Discover a fresh ${pageName.replace('random ', '')} from the internet.`;
+    }
+    if (pageName.includes('weather')) {
+        return 'Check the forecast, conditions, and radar for your location.';
+    }
+    if (pageName.includes('shop') || pageName.includes('print')) {
+        return 'Browse Preston\'s 3D prints and find something cool to take home.';
+    }
+    if (pageName.includes('typing')) {
+        return 'Test your speed and see how many words you can type.';
+    }
+    if (pageName.includes('drawing')) {
+        return 'Make something creative with an interactive drawing pad.';
+    }
+    if (pagePath.includes('game') || pageName.includes('play')) {
+        return `Play ${title} and see how far you can get.`;
+    }
+
+    return `Visit ${title} for something fun on Preston\'s website.`;
+}
+
 fixLocalFileLinks();
 
 ads = Array.from(links)
@@ -52,7 +81,7 @@ ads = Array.from(links)
     })
     .map((link, index) => ({
         title: link.textContent.trim(),
-        text: 'Explore this page from Preston\'s website.',
+        text: createAdDescription(link.textContent.trim(), link.getAttribute('href') || ''),
         button: 'Open Page',
         link: link.getAttribute('href'),
         color: adColors[index % adColors.length]
