@@ -85,6 +85,7 @@ h2 { margin: 0; font-size: clamp(34px, 4vw, 52px); letter-spacing: -.04em; }
 .choice-button.active { color: var(--ink); background: var(--cream); box-shadow: 0 2px 8px rgba(24, 35, 49, .12); }
 .choice-button:hover { color: var(--ink); }
 form { display: grid; gap: 8px; }
+.account-form[hidden] { display: none; }
 label { margin-top: 8px; font-size: 13px; font-weight: 700; }
 input { width: 100%; min-height: 48px; padding: 10px 12px; border: 2px solid #cbd4c8; border-radius: 7px; color: var(--ink); background: #fff; font: 16px "DM Sans", sans-serif; }
 input:focus { border-color: var(--ink); outline: 3px solid rgba(255, 107, 74, .25); }

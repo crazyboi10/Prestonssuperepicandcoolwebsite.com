@@ -96,7 +96,7 @@
                 const password = document.querySelector('#signup-password').value;
                 if (!email) {
                     showMessage('Enter your email address first.', true);
-                    document.querySelector('#email').focus();
+                    document.querySelector('#signup-email').focus();
                     return;
                 }
                 const { error } = await supabase.auth.signUp({ email, password });
