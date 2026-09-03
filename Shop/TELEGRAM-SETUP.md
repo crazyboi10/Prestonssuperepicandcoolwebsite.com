@@ -18,9 +18,11 @@
 
    `supabase secrets set TELEGRAM_BOT_TOKEN=YOUR_BOT_TOKEN TELEGRAM_CHAT_ID=YOUR_CHAT_ID`
 
-8. Deploy the function:
+8. From the `Shop` folder, deploy the function:
 
-   `supabase functions deploy send-order-telegram --no-verify-jwt`
+   `supabase functions deploy send-order-telegram --project-ref gqcvoqemwsaptfcztani --no-verify-jwt`
+
+The function source is in `supabase/functions/send-order-telegram/index.ts`, which is the folder layout required by the Supabase CLI. Redeploy it after changing the Telegram message fields.
 
 After deployment, customers can place an order from the shop and the message will arrive in your Telegram chat. The website keeps the email fallback if Telegram is temporarily unavailable.
 
