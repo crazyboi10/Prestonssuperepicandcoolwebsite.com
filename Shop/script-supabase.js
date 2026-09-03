@@ -299,6 +299,9 @@ function renderAccount() {
     document.querySelector('#inventory-toggle').hidden =
         !signedIn || currentRole !== 'owner';
 
+    document.querySelector('#test-order-panel').hidden =
+        !signedIn || currentRole !== 'owner';
+
     if (signedIn) {
         document.querySelector('#account-name').textContent =
             currentUser.email;
@@ -687,6 +690,21 @@ document
     );
 
 
+function createOrderNumber() {
+    const stamp = new Date().toISOString().slice(0, 10).replaceAll('-', '');
+    const random = Math.floor(1000 + Math.random() * 9000);
+    return `PRINT-${stamp}-${random}`;
+}
+
+function getCheckoutDetails() {
+    return {
+        customerName: document.querySelector('#checkout-name').value.trim(),
+        customerEmail: document.querySelector('#checkout-email').value.trim().toLowerCase(),
+        address: document.querySelector('#checkout-address').value.trim(),
+        notes: document.querySelector('#checkout-notes').value.trim()
+    };
+}
+
 // STRIPE CHECKOUT
 
 async function checkout() {
@@ -700,12 +718,32 @@ async function checkout() {
         return;
     }
 
+    document.querySelector('#checkout-name').value = currentUser.email.split('@')[0];
+    document.querySelector('#checkout-email').value = currentUser.email;
+    document.querySelector('#checkout-dialog').showModal();
+}
+
+async function startStripeCheckout(event) {
+    event.preventDefault();
+
+    if (!currentUser || !cart.length) return;
+
+    const details = getCheckoutDetails();
+    const orderNumber = createOrderNumber();
+
+    localStorage.setItem('pendingOrderNumber', orderNumber);
+
     try {
         const { data, error } =
             await supabase.functions.invoke(
                 'create-checkout',
                 {
                     body: {
+                        orderNumber,
+                        customerName: details.customerName,
+                        customerEmail: details.customerEmail,
+                        address: details.address,
+                        notes: details.notes,
                         items: cart.map(item => ({
                             id: item.id,
                             quantity: item.quantity
@@ -788,6 +826,61 @@ document
         'click',
         checkout
     );
+
+document
+    .querySelector('#checkout-form')
+    .addEventListener('submit', startStripeCheckout);
+
+document
+    .querySelector('#checkout-close')
+    .addEventListener('click', () => document.querySelector('#checkout-dialog').close());
+
+document
+    .querySelector('#test-order-form')
+    .addEventListener('submit', async event => {
+        event.preventDefault();
+
+        if (currentRole !== 'owner') return;
+
+        if (!cart.length) {
+            alert('Add at least one product to the cart before sending a fake order.');
+            return;
+        }
+
+        const customerName = document.querySelector('#test-order-name').value.trim();
+        const customerEmail = document.querySelector('#test-order-email').value.trim().toLowerCase();
+        const address = document.querySelector('#test-order-address').value.trim();
+        const notes = document.querySelector('#test-order-notes').value.trim();
+        const orderNumber = createOrderNumber();
+        const total = cart.reduce((sum, item) => {
+            const product = products.find(entry => entry.id === item.id);
+            return sum + (product ? product.price * item.quantity : 0);
+        }, 0);
+
+        const { error } = await supabase.functions.invoke('send-order-telegram', {
+            body: {
+                orderNumber,
+                customerName,
+                customerEmail,
+                address,
+                notes,
+                items: cart.map(item => {
+                    const product = products.find(entry => entry.id === item.id);
+                    return { name: product?.name || 'Unknown product', price: product?.price || 0, quantity: item.quantity };
+                }),
+                total,
+                isTestOrder: true
+            }
+        });
+
+        if (error) {
+            alert(`Fake order could not be sent: ${error.message}`);
+            return;
+        }
+
+        alert(`Fake order ${orderNumber} sent to Telegram.`);
+        event.target.reset();
+    });
 
 await loadProducts();
 await loadSession();

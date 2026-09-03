@@ -10,8 +10,8 @@ serve(async request => {
     if (request.method !== 'POST') return new Response('Method not allowed', { status: 405, headers: corsHeaders });
 
     try {
-        const { customerName, customerEmail, notes, items, total } = await request.json();
-        if (!customerName || !customerEmail || !Array.isArray(items) || !items.length) {
+        const { orderNumber, customerName, customerEmail, address, notes, items, total, isTestOrder } = await request.json();
+        if (!orderNumber || !customerName || !customerEmail || !address || !Array.isArray(items) || !items.length) {
             return new Response(JSON.stringify({ error: 'Missing order details' }), { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
         }
 
@@ -20,7 +20,8 @@ serve(async request => {
         if (!botToken || !chatId) return new Response(JSON.stringify({ error: 'Telegram is not configured yet' }), { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
 
         const itemText = items.map(item => `${item.quantity} x ${item.name} - $${Number(item.price * item.quantity).toFixed(2)}`).join('\n');
-        const text = `NEW PRESTON'S 3D PRINTS ORDER\n\nCustomer: ${customerName}\nEmail: ${customerEmail}\n\n${itemText}\n\nTotal: $${Number(total).toFixed(2)}\nNotes: ${notes || 'None'}`;
+        const heading = isTestOrder ? 'TEST ORDER - NO STRIPE PAYMENT' : "NEW PRESTON'S 3D PRINTS ORDER";
+        const text = `${heading}\n\nOrder number: ${orderNumber}\nCustomer: ${customerName}\nEmail: ${customerEmail}\nAddress: ${address}\n\n${itemText}\n\nTotal: $${Number(total).toFixed(2)}\nNotes: ${notes || 'None'}`;
         const telegramResponse = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: chatId, text }) });
         if (!telegramResponse.ok) return new Response(JSON.stringify({ error: 'Telegram could not receive the order alert' }), { status: 502, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
         return new Response(JSON.stringify({ sent: true }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });

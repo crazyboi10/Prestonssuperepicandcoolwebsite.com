@@ -23,3 +23,25 @@
    `supabase functions deploy send-order-telegram --no-verify-jwt`
 
 After deployment, customers can place an order from the shop and the message will arrive in your Telegram chat. The website keeps the email fallback if Telegram is temporarily unavailable.
+
+## Order details contract
+
+The shop now sends `create-checkout` these additional fields:
+
+- `orderNumber`
+- `customerName`
+- `customerEmail`
+- `address`
+- `notes`
+
+Update the deployed `create-checkout` function so it preserves those values in the Stripe Checkout Session metadata and passes them to `send-order-telegram` after Stripe confirms payment. The Telegram function requires `orderNumber`, `customerName`, `customerEmail`, `address`, `items`, and `total`.
+
+The owner-only inventory panel also includes a fake-order form. It calls `send-order-telegram` directly with `isTestOrder: true`, so it sends a clearly labeled Telegram message without creating a Stripe payment.
+
+## Show the order number after payment
+
+Configure the deployed `create-checkout` function's Stripe Checkout Session with this success URL:
+
+`https://YOUR-SITE-DOMAIN/Shop/success.html?session_id={CHECKOUT_SESSION_ID}`
+
+The shop stores the generated order number before sending the customer to Stripe. The success page reads it and displays it only after Stripe returns the customer to the site. Remove the stored value on cancellation if your checkout function also has a cancel URL.

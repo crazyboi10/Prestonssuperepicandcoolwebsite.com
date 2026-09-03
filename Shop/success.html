@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Confirmed | Preston's 3D Prints</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="confirmation-page">
+      <section class="confirmation-card">
+        <p class="eyebrow">Payment complete</p>
+        <h1>Thanks for your order.</h1>
+        <p class="confirmation-copy">Your Stripe payment went through successfully.</p>
+
+        <div class="order-number-box">
+          <span>Order number</span>
+          <strong id="orderNumber">Loading...</strong>
+        </div>
+
+        <p class="confirmation-copy">Keep this number for your records and include it if you contact us about your order.</p>
+        <a class="primary-button" href="index.html">Back to shop</a>
+      </section>
+    </main>
+
+    <script>
+      const orderNumber = localStorage.getItem('pendingOrderNumber');
+      document.querySelector('#orderNumber').textContent = orderNumber || 'Unavailable';
+      localStorage.removeItem('pendingOrderNumber');
+    </script>
+  </body>
+</html>
