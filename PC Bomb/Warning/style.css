@@ -1,0 +1,7 @@
+body {
+    background: linear-gradient(to bottom, #ff0000, #0019FF, #ff0000);
+}
+a {
+    font-size:7vw;
+    margin: 0vw auto;
+}
