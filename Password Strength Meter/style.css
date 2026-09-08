@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@600;800&display=swap');
+
+:root { --ink: #20202c; --paper: #fffaf0; --yellow: #ffd166; --mint: #8fe3cf; --pink: #f05d7b; --blue: #5d78e8; }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; padding: 24px; background: radial-gradient(circle at 90% 8%, #ffd166 0 12%, transparent 32%), linear-gradient(140deg, #5d78e8, #f05d7b 72%, #ff9c70); color: var(--ink); font-family: Nunito, sans-serif; }
+main { width: min(720px, 100%); margin: auto; }
+header { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+a { color: var(--ink); font-weight: 800; }
+.tag, .eyebrow { font-size: .75rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.tag { padding: 8px 10px; border: 2px solid var(--ink); border-radius: 5px; background: var(--paper); }
+.hero { margin: 62px 0 28px; }
+.eyebrow { margin: 0 0 10px; color: var(--paper); }
+h1 { margin: 0; font: 5.6rem/.88 Bungee, Impact, sans-serif; }
+h1 span { color: var(--paper); text-shadow: 4px 4px 0 var(--ink); }
+.intro { margin: 20px 0 0; font-size: 1.15rem; font-weight: 800; }
+.panel { margin-top: 18px; padding: 22px; border: 3px solid var(--ink); border-radius: 8px; background: var(--paper); box-shadow: 5px 5px 0 var(--ink); }
+.section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+h2 { margin: 0 0 16px; font: 1.55rem Bungee, Impact, sans-serif; }
+#strength-label { padding: 5px 9px; border-radius: 999px; background: var(--mint); font-size: .82rem; font-weight: 800; }
+.password-field, .generated-field { display: flex; gap: 8px; }
+input[type="password"], output { min-width: 0; flex: 1; border: 2px solid var(--ink); border-radius: 5px; background: #fff; color: var(--ink); font: 800 1rem Nunito, sans-serif; }
+input[type="password"] { padding: 13px; }
+output { overflow-wrap: anywhere; padding: 13px; }
+button { border: 2px solid var(--ink); border-radius: 5px; background: var(--yellow); color: var(--ink); cursor: pointer; font: 800 .95rem Nunito, sans-serif; }
+.password-field button, .generated-field button { min-width: 68px; }
+button:active { transform: translate(2px, 2px); }
+.meter { height: 13px; margin-top: 14px; overflow: hidden; border-radius: 99px; background: #dedede; }
+#meter-fill { display: block; width: 0; height: 100%; background: var(--pink); transition: width 200ms ease, background 200ms ease; }
+.feedback { min-height: 1.4em; margin: 12px 0; font-weight: 800; }
+.checks { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; margin: 0; padding: 0; list-style: none; font-size: .92rem; }
+.checks li::before { content: 'x'; display: inline-grid; place-items: center; width: 18px; height: 18px; margin-right: 7px; border-radius: 50%; background: #e5e5e5; color: #777; font-size: .75rem; font-weight: 800; }
+.checks li.pass::before { content: 'OK'; background: var(--mint); color: var(--ink); font-size: .58rem; }
+.range-label { display: flex; align-items: center; gap: 12px; font-weight: 800; }
+input[type="range"] { flex: 1; accent-color: var(--blue); cursor: pointer; }
+.options { display: flex; flex-wrap: wrap; gap: 14px; margin: 18px 0; font-weight: 800; }
+.options input { accent-color: var(--blue); }
+.generate-button { width: 100%; margin-top: 14px; padding: 13px; background: var(--pink); }
+.copy-status { min-height: 1.3em; margin: 10px 0 0; font-size: .85rem; font-weight: 800; }
+.note { color: var(--paper); font-size: .9rem; font-weight: 800; }
+
+@media (max-width: 560px) {
+    body { padding: 18px; }
+    .hero { margin-top: 46px; }
+    h1 { font-size: clamp(3.3rem, 17vw, 5rem); }
+    .panel { padding: 17px; }
+    .section-heading { align-items: flex-start; flex-direction: column; gap: 4px; }
+    .checks { grid-template-columns: 1fr; }
+}

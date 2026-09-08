@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Flip | Preston's Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="app">
+        <section class="coin-card">
+            <a class="back-link" href="../index.html">Back to main page</a>
+            <p class="eyebrow">Game tool</p>
+            <div class="header-row">
+                <div>
+                    <h1>Coin Flip</h1>
+                    <p class="subtitle">Leave the important decisions to chance.</p>
+                </div>
+                <button id="reset-button" class="reset-button" type="button">Reset</button>
+            </div>
+            <div class="coin-stage" aria-live="polite">
+                <div id="coin" class="coin heads" role="img" aria-label="Heads"><span id="coin-face">H</span></div>
+                <p id="result">Ready when you are.</p>
+            </div>
+            <button id="flip-button" class="flip-button" type="button">Flip the coin</button>
+            <div class="stats" aria-label="Flip statistics">
+                <div><span>Heads</span><strong id="heads-count">0</strong></div>
+                <div><span>Tails</span><strong id="tails-count">0</strong></div>
+                <div><span>Streak</span><strong id="streak">0</strong></div>
+            </div>
+            <p class="tip">Every flip is random. No coins were harmed.</p>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

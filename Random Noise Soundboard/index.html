@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Noise Soundboard | Preston's Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <header>
+            <a href="../index.html">Back to main page</a>
+            <span class="tag">SILLY AUDIO LAB</span>
+        </header>
+        <section class="hero">
+            <p class="eyebrow">Press a button. Make a noise.</p>
+            <h1>Random Noise<br><span>Soundboard</span></h1>
+            <p class="intro">A collection of extremely important sounds, including the mighty fart.</p>
+        </section>
+        <section class="controls" aria-label="Sound controls">
+            <button class="random-button" id="random-noise" type="button"><span aria-hidden="true">?</span> Random noise</button>
+            <label for="volume">Volume <input id="volume" type="range" min="0" max="1" value="0.7" step="0.05"></label>
+        </section>
+        <section class="sound-grid" aria-label="Silly noises">
+            <button class="sound-button fart" data-sound="fart" type="button"><span class="sound-icon" aria-hidden="true">~</span><strong>Fart</strong><small>the classic</small></button>
+            <button class="sound-button boing" data-sound="boing" type="button"><span class="sound-icon" aria-hidden="true">↝</span><strong>Boing</strong><small>very springy</small></button>
+            <button class="sound-button honk" data-sound="honk" type="button"><span class="sound-icon" aria-hidden="true">!</span><strong>Honk</strong><small>move along</small></button>
+            <button class="sound-button squeak" data-sound="squeak" type="button"><span class="sound-icon" aria-hidden="true">*</span><strong>Squeak</strong><small>tiny door</small></button>
+            <button class="sound-button pop" data-sound="pop" type="button"><span class="sound-icon" aria-hidden="true">o</span><strong>Pop</strong><small>just popped in</small></button>
+            <button class="sound-button bloop" data-sound="bloop" type="button"><span class="sound-icon" aria-hidden="true">~</span><strong>Bloop</strong><small>underwater-ish</small></button>
+            <button class="sound-button airhorn" data-sound="airhorn" type="button"><span class="sound-icon" aria-hidden="true">#</span><strong>Air horn</strong><small>maximum drama</small></button>
+            <button class="sound-button laser" data-sound="laser" type="button"><span class="sound-icon" aria-hidden="true">+</span><strong>Laser</strong><small>pew pew</small></button>
+        </section>
+        <p class="now-playing" id="now-playing" aria-live="polite">Choose your destiny.</p>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

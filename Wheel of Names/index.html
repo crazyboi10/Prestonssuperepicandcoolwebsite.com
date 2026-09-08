@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wheel of Names | Preston's Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <header><a href="../index.html">Back to main page</a><span class="tag">RANDOM PICKER</span></header>
+        <section class="intro">
+            <p class="eyebrow">Let chance decide</p>
+            <h1>Wheel of <span>Names</span></h1>
+            <p>Put names, choices, or snacks on the wheel and give it a spin.</p>
+        </section>
+        <section class="picker-layout">
+            <div class="wheel-panel">
+                <div class="wheel-wrap">
+                    <div class="pointer" aria-hidden="true"></div>
+                    <canvas id="wheel" width="520" height="520" aria-label="Wheel of names"></canvas>
+                </div>
+                <button id="spin" class="spin-button" type="button">Spin the wheel</button>
+                <p id="result" class="result" aria-live="polite">Add names, then spin!</p>
+            </div>
+            <aside class="names-panel">
+                <label for="names">Names or choices <span id="count">4 items</span></label>
+                <textarea id="names" spellcheck="false">Preston
+Mom
+A mystery choice
+Something silly</textarea>
+                <p>Put one choice on each line.</p>
+                <button id="update" class="update-button" type="button">Update wheel</button>
+                <button id="reset" class="reset-button" type="button">Reset names</button>
+            </aside>
+        </section>
+        <p class="note">The wheel runs locally in your browser. No names are uploaded.</p>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

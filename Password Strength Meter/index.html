@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Meter &amp; Generator | Preston's Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <header>
+            <a href="../index.html">Back to main page</a>
+            <span class="tag">PRIVATE / LOCAL</span>
+        </header>
+        <section class="hero">
+            <p class="eyebrow">Security utility</p>
+            <h1>Password<br><span>lab</span></h1>
+            <p class="intro">Check a password, learn what makes it stronger, or make a fresh one.</p>
+        </section>
+        <section class="panel checker">
+            <div class="section-heading"><h2>Strength meter</h2><span id="strength-label">Start typing</span></div>
+            <div class="password-field">
+                <input id="password" type="password" autocomplete="off" spellcheck="false" placeholder="Type or generate a password">
+                <button id="toggle-password" type="button" aria-label="Show password">Show</button>
+            </div>
+            <div class="meter" aria-hidden="true"><span id="meter-fill"></span></div>
+            <p id="feedback" class="feedback" aria-live="polite">Your password is checked only in this browser.</p>
+            <ul id="checks" class="checks">
+                <li data-check="length">At least 12 characters</li>
+                <li data-check="lower">Lowercase letters</li>
+                <li data-check="upper">Uppercase letters</li>
+                <li data-check="number">A number</li>
+                <li data-check="symbol">A special character</li>
+            </ul>
+        </section>
+        <section class="panel generator">
+            <div class="section-heading"><h2>Make a password</h2><span id="length-label">20 characters</span></div>
+            <label class="range-label" for="length">Length <input id="length" type="range" min="8" max="40" value="20"></label>
+            <div class="options">
+                <label><input id="include-uppercase" type="checkbox" checked> Uppercase</label>
+                <label><input id="include-numbers" type="checkbox" checked> Numbers</label>
+                <label><input id="include-symbols" type="checkbox" checked> Symbols</label>
+            </div>
+            <div class="generated-field"><output id="generated" aria-live="polite"></output><button id="copy-generated" type="button">Copy</button></div>
+            <button id="generate" class="generate-button" type="button">Generate new password</button>
+            <p id="copy-status" class="copy-status" aria-live="polite"></p>
+        </section>
+        <p class="note">No passwords are uploaded, saved, or sent anywhere by this page.</p>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

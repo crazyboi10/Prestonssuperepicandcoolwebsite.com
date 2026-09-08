@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048 Doge | Preston's Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <header>
+            <a href="../Games/index.html">Back to games</a>
+            <span class="badge">WOW / 02</span>
+        </header>
+        <section class="intro">
+            <div class="doge-mark" aria-hidden="true"><span>such</span><strong>DOGE</strong><span>wow</span></div>
+            <div>
+                <p class="eyebrow">Much puzzle. Very numbers.</p>
+                <h1>2048 Doge</h1>
+                <p class="subtitle">Combine matching tiles until you unlock the ultimate wow.</p>
+            </div>
+        </section>
+        <div class="score-row">
+            <div class="score-box"><span>Score</span><strong id="score">0</strong></div>
+            <div class="score-box"><span>Best</span><strong id="best">0</strong></div>
+            <button id="new-game" type="button">New game</button>
+        </div>
+        <p id="status" class="status" aria-live="polite">Use your arrow keys or swipe.</p>
+        <div class="board" id="board" aria-label="Doge 2048 board"></div>
+        <p class="help">Arrow keys or swipe the board. Every move adds a new tile.</p>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
