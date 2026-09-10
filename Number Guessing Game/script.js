@@ -1,3 +1,7 @@
+// Define your min and max limits here
+const MIN_NUMBER = 1n;
+const MAX_NUMBER = 100n; // Set to whatever limit you want (e.g., 100n, 1000n)
+
 const form = document.getElementById('guess-form');
 const guessInput = document.getElementById('guess');
 const message = document.getElementById('message');
@@ -7,28 +11,38 @@ let secretNumber;
 let attempts;
 let finished;
 
-function randomDigit() {
-    const values = new Uint32Array(1);
-    crypto.getRandomValues(values);
-    return values[0] % 10;
+function getRandomBigInt(min, max) {
+    const range = max - min + 1n;
+    const bits = range.toString(2).length;
+    const bytes = Math.ceil(bits / 8);
+    const array = new Uint8Array(bytes);
+    
+    let randomValue;
+    do {
+        crypto.getRandomValues(array);
+        let hex = '0x';
+        for (let i = 0; i < array.length; i++) {
+            hex += array[i].toString(16).padStart(2, '0');
+        }
+        randomValue = BigInt(hex);
+    } while (randomValue >= (1n << BigInt(bytes * 8)) - ((1n << BigInt(bytes * 8)) % range));
+
+    return min + (randomValue % range);
 }
 
-function createSecretNumber() {
-    const digits = 1 + randomDigit() * 10 + randomDigit();
-    let value = String(1 + (randomDigit() % 9));
-    for (let index = 1; index < digits; index++) value += randomDigit();
-    return BigInt(value);
+function createSecretNumber(min = MIN_NUMBER, max = MAX_NUMBER) {
+    return getRandomBigInt(BigInt(min), BigInt(max));
 }
 
 function startGame() {
-    secretNumber = createSecretNumber();
+    secretNumber = createSecretNumber(MIN_NUMBER, MAX_NUMBER);
     attempts = 0;
     finished = false;
     guessInput.value = '';
     guessInput.disabled = false;
     form.querySelector('button').disabled = false;
     attemptsElement.textContent = '0 attempts';
-    statusLabel.textContent = 'Your first guess can be any whole number.';
+    statusLabel.textContent = `Guess a whole number between ${MIN_NUMBER} and ${MAX_NUMBER}.`;
     message.textContent = 'Higher or lower clues will appear here.';
     message.className = 'message';
     guessInput.focus();
