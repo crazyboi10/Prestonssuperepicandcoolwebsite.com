@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048 Meme | Preston's Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <header>
+            <a href="../Games/index.html">Back to games</a>
+            <span class="badge">MEME / 03</span>
+        </header>
+        <section class="intro">
+            <div class="meme-mark" aria-hidden="true"><span>so</span><strong>MEME</strong><span>lol</span></div>
+            <div>
+                <p class="eyebrow">Big brain energy</p>
+                <h1>2048 Meme</h1>
+                <p class="subtitle">Classic 2048 rules, but every tile is packed with internet chaos and peak humor.</p>
+            </div>
+        </section>
+        <div class="score-row">
+            <div class="score-box"><span>Score</span><strong id="score">0</strong></div>
+            <div class="score-box"><span>Best</span><strong id="best">0</strong></div>
+            <button id="new-game" type="button">New game</button>
+        </div>
+        <p id="status" class="status" aria-live="polite">Use your arrow keys or swipe.</p>
+        <div class="board" id="board" aria-label="Meme 2048 board"></div>
+        <p class="help">Arrow keys or swipe the board. Merge matching meme tiles and chase the ultimate laugh.</p>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
