@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar | Preston's Super Epic and Cool Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="calendar-app">
+        <a class="back-link" href="../index.html">&larr; Back to the website</a>
+
+        <header class="app-header">
+            <div>
+                <p class="eyebrow">Plan your month</p>
+                <h1>Calendar</h1>
+                <p class="subtitle">Keep track of the days that matter.</p>
+            </div>
+            <button class="today-button" id="todayButton" type="button">Today</button>
+        </header>
+
+        <section class="calendar-layout" aria-label="Calendar and events">
+            <div class="calendar-panel">
+                <div class="month-toolbar">
+                    <button class="icon-button" id="previousMonth" type="button" aria-label="Previous month">&larr;</button>
+                    <h2 id="monthLabel"></h2>
+                    <button class="icon-button" id="nextMonth" type="button" aria-label="Next month">&rarr;</button>
+                </div>
+
+                <div class="weekdays" aria-hidden="true">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                </div>
+                <div class="calendar-grid" id="calendarGrid" role="grid" aria-label="Month days"></div>
+            </div>
+
+            <aside class="events-panel">
+                <div class="selected-date-heading">
+                    <p class="eyebrow">Selected day</p>
+                    <h2 id="selectedDateLabel"></h2>
+                </div>
+                <form id="eventForm" class="event-form">
+                    <label for="eventTitle">Add an event</label>
+                    <div class="event-input-row">
+                        <input id="eventTitle" name="eventTitle" type="text" maxlength="60" placeholder="What is happening?" autocomplete="off" required>
+                        <button type="submit" aria-label="Add event">+</button>
+                    </div>
+                </form>
+                <div id="eventList" class="event-list" aria-live="polite"></div>
+            </aside>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
